@@ -1,8 +1,8 @@
 <template>
    <v-container >
-    <v-card class="pa-3" >
-      Recipe
-    </v-card>
+    <v-card-title class="primary--text" >
+       Recipe
+     </v-card-title>
   </v-container>
 </template>
 
@@ -13,5 +13,4 @@ export default {
 </script>
 
 <style scoped>
-.wrap {margin : 0 auto; max-width: 1400px; width:100%;}
 </style>
