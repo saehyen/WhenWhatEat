@@ -1,7 +1,9 @@
 <template>
-  <div class="ignup">
-    <div class="wrap">signup</div>
-  </div>
+   <v-container >
+    <v-card class="pa-3" >
+      signup
+    </v-card>
+  </v-container>
 </template>
 
 <script>

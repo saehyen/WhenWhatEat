@@ -1,22 +1,9 @@
 <template>
-  <div class="index">
-    <div class="banner"><img src="../assets/mainbanner.jpg" alt="배너"></div>
-    <div class="wrap">
-        <div class="thisweek">
-            <h2> 금주의 레시피</h2>
-            <div class="hooperwrap">
-                <div class="todo"> Todo </div>
-                <!-- <hooper :infiniteScroll="true" :wheelControl="false" :hoverPause="false" :mouseDrag="false" :autoPlay="true" :playSpeed="3000" :itemsToShow="6" class="pahooper">
-                    <slide v-for="palist in palists" v-bind:key="palist">
-                        <div class="palist">
-                            <a href="#none"><img :src="require(`@/assets/img/${palist.img}`)"></a>
-                        </div>
-                    </slide>
-                </hooper> -->
-           </div>
-        </div>
-    </div>
-  </div>
+  <v-container >
+    <v-card class="pa-3" >
+      home``
+    </v-card>
+  </v-container>
 </template>
 
 <script>

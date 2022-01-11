@@ -1,7 +1,9 @@
 <template>
-  <div class="Login">
-    <div class="wrap">Login</div>
-  </div>
+   <v-container >
+    <v-card class="pa-3" >
+      Login
+    </v-card>
+  </v-container>
 </template>
 
 <script>

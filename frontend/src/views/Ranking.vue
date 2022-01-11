@@ -1,7 +1,18 @@
 <template>
-  <div class="Ranking">
-    <div class="wrap">ranking</div>
-  </div>
+   <v-container >
+    <v-card class="mt-5 pa-3" >
+      <v-row>
+        <v-col>
+          <v-card
+            class="pa-3"
+            outlined
+          >
+          Col
+          </v-card>
+        </v-col>
+      </v-row>
+    </v-card>
+  </v-container>
 </template>
 
 <script>

@@ -5,37 +5,12 @@
       color="primary"
       dark
     >
-      <div class="d-flex align-center">
-      <v-img
-        alt="V"
-        class="shrink mr-2"
-        contain
-        src="https://cdn.vuetifyjs.com/imges/logos/vuetify-logo-dark.png"
-        transition="scale-transition"
-        width="40"
-      />
-      <v-img
-      alt="V"
-      class="shrink mr-2"
-      contain
-      src="https://cdn.vuetifyjs.com/imges/logos/vuetify-logo-dark.png"
-      transition="scale-transition"
-      width="40"
-      />
-      </div>
-
-      <v-spacer></v-spacer>
-    <v-btn
-      href="http://github.com/vuetifyjs/vuetify/releases/latest"
-      target="_black"
-      text
-    >
-      <span class="mr-2">latest</span>
-      <v-icon>mdi-open-in-new</v-icon>
-    </v-btn>
+    <v-app-bar-nav-icon @click="drawer = !drawer"></v-app-bar-nav-icon>
+    <v-spacer/>
+    
     </v-app-bar>
 
-  <v-navigation-drawer app>
+  <v-navigation-drawer v-model="drawer" app>
       <v-list-item>
         <v-list-item-content>
           <v-list-item-title class="text-h6">
@@ -71,9 +46,9 @@
     </v-navigation-drawer>
 
     <v-main>
-      <Header/>
+      <v-container fluid>
       <router-view/>
-      <Footer/>
+      </v-container>
     </v-main>
   </v-app>
 </template>
@@ -82,6 +57,7 @@
 export default {
   name: 'App',
   data: () => ({
+    drawer:false,
     items: [
           { title: '홈', icon: 'mdi-view-dashboard', to: '/' },
           { title: '내냉장고', icon: 'mdi-image', to:'/Myrefrigerator'},

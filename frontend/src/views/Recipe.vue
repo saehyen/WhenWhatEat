@@ -1,7 +1,9 @@
 <template>
-  <div class="Recipe">
-    <div class="wrap">recipe</div>
-  </div>
+   <v-container >
+    <v-card class="pa-3" >
+      Recipe
+    </v-card>
+  </v-container>
 </template>
 
 <script>
