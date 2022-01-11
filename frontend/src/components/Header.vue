@@ -1,7 +1,7 @@
 <template>
 <div>
 	<header>
-		<h1><router-link to="/"><img alt="Vue logo" src="../../assets/logo.png">로고로고</router-link></h1>
+		<h1><router-link to="/"><img alt="Vue logo" src="../assets/logo.png">로고로고</router-link></h1>
 		
 		<button> 검색 </button>
 		<input type="text" v-model="RecipeName" placeholder="검색할 음식 이름" />

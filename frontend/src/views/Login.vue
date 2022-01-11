@@ -1,6 +1,6 @@
 <template>
   <div class="Login">
-    Login
+    <div class="wrap">Login</div>
   </div>
 </template>
 
@@ -11,5 +11,5 @@ export default {
 </script>
 
 <style scoped>
-
+.wrap {margin : 0 auto; max-width: 1400px; width:100%;}
 </style>

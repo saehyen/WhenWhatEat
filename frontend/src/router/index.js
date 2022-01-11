@@ -19,7 +19,7 @@ const routes = [
 		,name:'Myrefrigerator'
 		, component: ()=> import('../views/Myrefrigerator.vue')
 	},
-	
+
 	{
 		path:'/Recipe'
 		,name:'Recipe'
