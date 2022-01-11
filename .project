@@ -5,6 +5,7 @@
 	<projects>
 	</projects>
 	<buildSpec>
+<<<<<<< HEAD
 		<buildCommand>
 			<name>org.eclipse.jdt.core.javavuilder</name>
 			<arguments>
@@ -12,12 +13,25 @@
 		</buildCommand>
 		<buildCommand>
 			<name>org.eclipse.m2e.core.maven2Builder</name>
+=======
+<<<<<<< HEAD
+		<buildCommand>
+			<name>org.eclipse.wst.validation.validationbuilder</name>
+>>>>>>> branch 'main' of https://github.com/saehyen/Recipe.git
 			<arguments>
 			</arguments>
 		</buildCommand>
 	</buildSpec>
 	<natures>
+<<<<<<< HEAD
 		<nature>org.eclipse.m2e.core.maven2Nature</nature>
 		<nature>org.eclipse.jdt.core.javanature</nature>
+=======
+		<nature>org.eclipse.wst.jsdt.core.jsNature</nature>
+=======
+	</buildSpec>
+	<natures>
+>>>>>>> refs/remotes/origin/main
+>>>>>>> branch 'main' of https://github.com/saehyen/Recipe.git
 	</natures>
 </projectDescription>
