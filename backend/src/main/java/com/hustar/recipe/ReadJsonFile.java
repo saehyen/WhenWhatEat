@@ -14,7 +14,7 @@ import com.google.gson.JsonArray;
 public class ReadJsonFile {
 	public static void main(String[] args) throws IOException, ParseException {
 		
-		Reader reader = new FileReader("C:\\Users\\HUSTAR11\\Documents\\test.json");
+		Reader reader = new FileReader("./recipe.json");
 
 		JSONParser parser = new JSONParser();
 		Object obj = parser.parse(reader);
