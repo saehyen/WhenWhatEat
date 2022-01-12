@@ -1,8 +1,9 @@
 <template>
    <v-container >
     <v-card-title class="primary--text" >
-       Myrefrigerator
+       {{user_name}} 님의 냉장고 현황
      </v-card-title>
+     <hr/>
   </v-container>
 </template>
 
@@ -11,7 +12,7 @@ export default {
   name: 'Myrefrigerator',
   data(){
     return{
-      user_name : "하이"
+      user_name : "최세민"
     }
   }
 }
