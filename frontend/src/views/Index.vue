@@ -1,68 +1,29 @@
 <template>
    <v-container >
-      <v-card
-    color="secondary"
-    flat
-    tile
-  >
-    <v-window v-model="onboarding">
-      <v-window-item
-        v-for="n in length"
-        :key="`card-${n}`"
-      >
-        <v-card
-          color="transparent"
-          height="200"
+      <v-container fluid>
+      <v-row dense>
+        <v-col
+          v-for="card in cards"
+          :key="card.title"
+          :cols="card.flex"
         >
-          <v-row
-            class="fill-height"
-            align="center"
-            justify="center"
-          >
-            <v-card-text class="text-center">
-              {{n}}
-            </v-card-text>
-          </v-row>
-        </v-card>
-      </v-window-item>
-    </v-window>
+          <v-card>
+            <v-img
+              :src="card.src"
+              class="white--text align-end"
+              gradient="to bottom, rgba(0,0,0,.1), rgba(0,0,0,.5)"
+              height="200px"
+            >
+              <v-card-title v-text="card.title"></v-card-title>
+            </v-img>
 
-    <v-card-actions class="justify-space-between">
-      <v-btn
-        text
-        @click="prev"
-      >
-        <v-icon>mdi-chevron-left</v-icon>
-      </v-btn>
-      <v-item-group
-        v-model="onboarding"
-        class="text-center"
-        mandatory
-      >
-        <v-item
-          v-for="n in length"
-          :key="`btn-${n}`"
-          v-slot="{ active, toggle }"
-        >
-          <v-btn
-            :input-value="active"
-            icon
-            @click="toggle"
-          >
-            <v-icon small>mdi-record</v-icon>
-          </v-btn>
-        </v-item>
-      </v-item-group>
-      <v-btn
-        text
-        @click="next"
-      >
-        <v-icon>mdi-chevron-right</v-icon>
-      </v-btn>
-    </v-card-actions>
-  </v-card>
+            
+          </v-card>
+        </v-col>
+      </v-row>
+    </v-container>
   
-  
+  <!-- ============================================================================================ -->
   <v-card class="pa-3" >
     <v-card-title class="text-h5 font-weight-black">
     금주의 레시피
@@ -73,6 +34,7 @@
             class="mx-auto"
             elevation="5"
             width="100%"
+            height="300"
           >
             <v-slide-group
               v-model="model"
@@ -81,7 +43,7 @@
               show-arrows
             >
               <v-slide-item
-                v-for="n in 10"
+                v-for="n in 5"
                 :key="n"
                 v-slot="{ active, toggle }"
               >              
@@ -89,7 +51,7 @@
                   :color="active ? 'primary' : 'grey lighten-1'"
                   class="ma-4"
                   height="200"
-                  width="125"
+                  width="250"
                   @click="toggle"
                 >
                   <v-row
@@ -99,37 +61,121 @@
                   >
                     <v-scale-transition>
                       <h3 v-if="active" color="white">
-                        재료
+                        {{n}}번 요리 재료들
                       </h3>
                        <h3 v-if-else="active" color="white">
-                        {{n}}
+                        요리{{n}}
                       </h3>
                     </v-scale-transition>
+                    
                   </v-row>
+                  <p class="font-weight-black text-center" >음식이름{{n}}</p>
                 </v-card>
-                
               </v-slide-item>
            
             </v-slide-group>
             
-  </v-sheet>
+        </v-sheet>
       </v-col>
+      </v-row>
+      
+     </v-card>
+     
+      <!-- ============================================================================================ -->
+<v-card class="pa-3" >
+    <v-card-title class="text-h5 font-weight-black">
+    유튜브 레시피
+  </v-card-title>
+    <v-row >
+      <v-col tile align="center">
+         <youtube class="youtube"
+            :height= "200"
+            :width= "300"  
+            :video-id="dQnjf9ouGgk"
+            :player-vars="playerVars"
+            @ready="ready"
+            @playing="playing"
+            @ended="ended"
+            @error="error"
+            ref="youtube" />
+            <v-card-title class="text-center justify-center font-weight-black" >한식</v-card-title>
+            <v-card-subtitle >존맛탱</v-card-subtitle>
+            
+      </v-col>
+      <v-col tile
+      align="center"  >
+         <youtube class="youtube"
+            :height= "200"
+            :width= "300"  
+            :video-id="dQnjf9ouGgk"
+            :player-vars="playerVars"
+            @ready="ready"
+            @playing="playing"
+            @ended="ended"
+            @error="error"
+            ref="youtube" />
+            <v-card-title class=" text-center justify-center font-weight-black">중식</v-card-title>
+            <v-card-subtitle >존맛탱</v-card-subtitle>
+            
+        </v-col>
+        <v-col align="center" >
+            <youtube class="youtube"
+              :height= 200
+              :width= 300  
+              :video-id="dQnjf9ouGgk"
+              :player-vars="playerVars"
+              @ready="ready"
+              @playing="playing"
+              @ended="ended"
+              @error="error"
+              ref="youtube" />
+              <v-card-title class= "text-center justify-center font-weight-black">양식</v-card-title>
+              <v-card-subtitle class="font-content">존맛탱</v-card-subtitle>
+              
+        </v-col>
       </v-row>
      </v-card>
   </v-container>
 </template>
 
 <script>
-export default {
+  export default {
   name: 'Index',
   components:{
   },
   data: () => ({
       length: 3,
       onboarding: 0,
+       cards: [
+      { title: '메인 배너', src: 'https://cdn.vuetifyjs.com/images/cards/house.jpg', flex: 12 }
+    ],
     }),
-
+    computed: {
+        playerVars() {
+          return {
+            //controls: 0,
+            player3: Object,
+            rel: 0,
+            autoplay: 1,
+            enablejsapi: 1,
+            fs: 0,
+            playsinline: 1,
+            ivLoadPolicy2: 1,
+            //playlist: this.videoId,
+            //muted: 1,
+            //loop: 1,
+            start: this.start,
+            end: this.end
+          };
+        },
+      },
     methods: {
+      ready(){},
+      playing(){
+        this.$refs.youtube.player.playVideo()
+      },
+      ended(){},
+      error(){},
       next () {
         this.onboarding = this.onboarding + 1 === this.length
           ? 0

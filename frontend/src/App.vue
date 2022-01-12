@@ -10,7 +10,8 @@
     >
     <v-app-bar-nav-icon @click="drawer = !drawer"></v-app-bar-nav-icon>
     <v-spacer/>
-    
+    <v-icon
+    size = "35" >mdi-account-circle</v-icon>
     </v-app-bar>
 
   <v-navigation-drawer 
