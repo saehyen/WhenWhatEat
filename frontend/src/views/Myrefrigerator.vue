@@ -1,8 +1,8 @@
 <template>
    <v-container >
-    <v-card class="pa-3" >
-      Myrefrigerator
-    </v-card>
+    <v-card-title class="primary--text" >
+       Myrefrigerator
+     </v-card-title>
   </v-container>
 </template>
 

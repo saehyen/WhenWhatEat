@@ -4,17 +4,34 @@
       app
       color="primary"
       dark
+      shrink-on-scroll
+      src="./assets/appbar.jpg"
+      scroll-target="#scrolling-techniques-2"
     >
     <v-app-bar-nav-icon @click="drawer = !drawer"></v-app-bar-nav-icon>
     <v-spacer/>
     
     </v-app-bar>
 
-  <v-navigation-drawer v-model="drawer" app>
+  <v-navigation-drawer 
+  v-model="drawer" 
+  dark
+  app
+  :src="require('@/assets/menubackground.jpg')"
+  >
+  <template 
+  v-slot:img="props"
+  > 
+    
+    <v-img
+      :gradient="gradient"
+      v-bind="props">
+    </v-img>
+  </template>
       <v-list-item>
         <v-list-item-content>
-          <v-list-item-title class="text-h6">
-            로고로고
+          <v-list-item-title class="text-h5">
+            언제뭐무꼬
           </v-list-item-title>
           <v-list-item-subtitle>
             레시피
@@ -33,6 +50,8 @@
           :key="item.title"
           link
           :to="item.to"
+          active-class="primary"
+          class="py-1"
         >
           <v-list-item-icon>
             <v-icon>{{ item.icon }}</v-icon>

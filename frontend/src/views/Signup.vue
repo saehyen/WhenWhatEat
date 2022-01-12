@@ -1,8 +1,8 @@
 <template>
    <v-container >
-    <v-card class="pa-3" >
-      signup
-    </v-card>
+    <v-card-title class="primary--text" >
+       signup
+     </v-card-title>
   </v-container>
 </template>
 
