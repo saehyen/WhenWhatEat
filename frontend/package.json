@@ -15,6 +15,7 @@
     "vue-carousel": "^0.18.0",
     "vue-router": "^3.5.3",
     "vue-session": "^1.0.0",
+    "vue-youtube": "^1.4.0",
     "vuetify": "^2.4.0"
   },
   "devDependencies": {

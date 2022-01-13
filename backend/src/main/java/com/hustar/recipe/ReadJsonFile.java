@@ -24,8 +24,11 @@ public class ReadJsonFile {
 		if(jsonArr.size() > 0) {
 			for(int i = 0; i < jsonArr.size(); i++) {
 				JSONObject jsonObj = (JSONObject)jsonArr.get(i);
+				Object infoObj = (Object)jsonObj.get("info");
+				JSONObject infoObject = (JSONObject) infoObj;
+				System.out.println(infoObject.get("info1"));
 				
-				System.out.println((String)jsonObj.get("name"));
+//				System.out.println((Object)jsonObj.get("info"));
 			}
 		}
 		

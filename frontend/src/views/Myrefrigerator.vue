@@ -1,7 +1,7 @@
 <template>
    <v-container >
     <v-card-title class="primary--text" >
-       {{user_name}} ë‹˜ì˜ ëƒ‰ì¥ê³  í˜„í™©
+       {{user_name}} ´ÔÀÇ ³ÃÀå°í ÇöÈ²
      </v-card-title>
      <hr/>
   </v-container>
@@ -12,7 +12,7 @@ export default {
   name: 'Myrefrigerator',
   data(){
     return{
-      user_name : "ìµœì„¸ë¯¼"
+      user_name : "ÃÖ¼¼¹Î"
     }
   }
 }
