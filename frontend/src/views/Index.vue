@@ -12,7 +12,7 @@
               :src="card.src"
               class="white--text align-end"
               gradient="to bottom, rgba(0,0,0,.1), rgba(0,0,0,.5)"
-              height="300px"
+              height="200px"
             >
               <v-card-title v-text="card.title"></v-card-title>
             </v-img>
@@ -51,7 +51,7 @@
                   :color="active ? 'primary' : 'grey lighten-1'"
                   class="ma-4"
                   height="200"
-                  width="300"
+                  width="250"
                   @click="toggle"
                 >
                   <v-row
@@ -91,7 +91,7 @@
          <youtube class="youtube"
             :height= "200"
             :width= "300"  
-            :video-id= videoId[0]
+            :video-id="dQnjf9ouGgk"
             :player-vars="playerVars"
             @ready="ready"
             @playing="playing"
@@ -107,7 +107,7 @@
          <youtube class="youtube"
             :height= "200"
             :width= "300"  
-            :video-id= videoId[1]
+            :video-id="dQnjf9ouGgk"
             :player-vars="playerVars"
             @ready="ready"
             @playing="playing"
@@ -122,7 +122,7 @@
             <youtube class="youtube"
               :height= 200
               :width= 300  
-              :video-id = videoId[2]
+              :video-id="dQnjf9ouGgk"
               :player-vars="playerVars"
               @ready="ready"
               @playing="playing"
@@ -146,9 +146,8 @@
   data: () => ({
       length: 3,
       onboarding: 0,
-      videoId: ['kR77WlHRZrs','dQnjf9ouGgk','uYapP-gOAVU'],
-      cards: [
-      { title: '타이틀', src: 'https://cdn.vuetifyjs.com/images/cards/house.jpg', flex: 12 }
+       cards: [
+      { title: '메인 배너', src: 'https://cdn.vuetifyjs.com/images/cards/house.jpg', flex: 12 }
     ],
     }),
     computed: {
