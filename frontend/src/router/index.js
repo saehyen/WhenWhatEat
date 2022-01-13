@@ -40,11 +40,7 @@ const routes = [
 		,name:'Signup'
 		, component: ()=> import('../views/Signup.vue')
 	},
-	{
-		path:'/test'
-		,name: 'Test'
-		,component: ()=> import('../views/test.vue')
-	},
+	
 ]
   
 const router = new VueRouter({
