@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+ <mapper namespace="com.spring.test.dao.RecipeMapper">
+    <resultMap id="NoticeVo" type="com.spring.test.vo.RecipeVo">
+        <result property="id" column="id"/>
+        <result property="name" column="name"/>
+        <result property="img" column="img"/>
+        <result property="rate" column="rate"/>
+        <result property="rate_count" column="rate_count"/>
+        <result property="views" column="views"/>
+        <result property="post_date" column="post_date"/>
+    </resultMap>
+     
+    <select id="recipeListCount" resultType="Integer">
+        select count(*)
+        from push_recipe;
+    </select>
+     
+    <select id="recipeList" resultMap = "RecipeVo">
+        select  id,
+                name,
+                img,
+                rate,
+                rate_count,
+                views,
+                DATE_FORMAT(mod_date, '%Y-%m-%d') post_date
+        from push_recipe
+        order by id
+        limit #{startIndex}, #{cntPerPage}
+         
+    </select>
+    <select id="recipeOne" parameterType="String" resultMap = "RecipeVo">
+        select  id,
+                name
+        from push_recipe
+        where id = #{id}
+    </select>
+ </mapper>
