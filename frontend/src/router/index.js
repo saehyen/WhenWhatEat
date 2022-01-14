@@ -31,6 +31,11 @@ const routes = [
 		, component: ()=> import('../views/Ranking.vue')
 	},
 	{
+		path:'/Test'
+		,name:'Test'
+		, component: ()=> import('../views/Test.vue')
+	},
+	{
 		path:'/Login'
 		,name:'Login'
 		, component: ()=> import('../views/Login.vue')

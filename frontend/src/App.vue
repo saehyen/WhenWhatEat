@@ -85,6 +85,7 @@ export default {
           { title: '내냉장고', icon: 'mdi-image', to:'/Myrefrigerator'},
           { title: '랭킹', icon: 'mdi-help-box', to:'/Ranking'},
           { title: '레시피', icon: 'mdi-help-box', to:'/Recipe' },
+           { title: '테스트', icon: 'mdi-help-box', to:'/Test' },
         ],
         right: null,
   }),
