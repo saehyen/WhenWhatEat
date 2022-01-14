@@ -1,37 +1,39 @@
 <template>
-   <v-container >
-    <button>Test</button>
-  </v-container>
+  <div class="hello">
+    {{ recipeList }}
+  </div>
 </template>
 
 <script>
 import axios from 'axios'
 export default {
-    name: 'Recipe',
-    data(){
-        return{
-            baseUrl:'http://localhost:9999'
-            
-        }
+  name: 'HelloWorld',
+  data() {
+    return {
+      recipeList: [],
+    };
+  },
+  props: {
+    msg: String,
+  },
+  created() {
+    this.getRecipeList();
+  },
+  methods: {
+    getRecipeList() {
+      axios.post('http://localhost:9999/recipe/get-recipe-list.do')
+        .then((response) => {
+          if (response.data.success) {
+            console.log(response.data.result);
+            this.recipeList = response.data.result;
+          }
+        })
+        .catch(function(error) {
+          console.log(error);
+        });
     },
-    methods :{
-        test(){
-            axios.post(`http://localhost:9999/testurl`)
-            .then((response)=>{
-                console.log(response.data);
-                if(response.status === 200){
-                }else{
-                    alert(response)
-                    alert("통신에러");
-                }
-            }).catch((err)=>{
-                alert(err);
-                console.log(err);
-                alert("예외 에러");
-            })
-        }
-    }
-}
+  },
+};
 </script>
 
 <style scoped>
