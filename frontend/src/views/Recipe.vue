@@ -13,6 +13,7 @@
         class="py-4 px-1"
         rounded
       > 
+
         <v-chip-group
           multiple
           active-class="primary--text"
@@ -53,7 +54,7 @@
   <v-row>
   <v-col>
   <v-card-title class="primary--text" >
-       총 <span style="text-decoration:underline">10,000</span>개의 레시피가 검색되었습니다
+       총 <span style="text-decoration:underline">10000</span>개의 레시피가 검색되었습니다
   </v-card-title>
   
   </v-col>
@@ -78,6 +79,7 @@
         class="py-1 px-1"
         rounded
   > 
+  <!-- 92번째 줄 cards에서 recipeList로 수정함 / title => name, src => img, ratio => rate 이렇게 db에 있는 값 이름으로 처리 -->
     <v-card-title class="primary--text" >
        Ranking
      </v-card-title>
@@ -86,7 +88,8 @@
          class="pa-2"
           outlined
           tile
-          v-for="card in cards"
+          
+          v-for="card in recipeList"
           :key="card.num"
           :md="4"
           :sm="12"
@@ -95,14 +98,14 @@
           <v-card 
           >
             <v-img 
-              :src="card.src"
+              :src="card.img"
               class="white--text align-end"
               gradient="to bottom, rgba(0,0,0,.1), rgba(0,0,0,.5)"
               height="125px"
             >
              <!-- <v-card-subtitle >{{ new Date().getYear()+1900 }}년{{ new Date().getMonth()+1 }}월{{ new Date().getDate() }}일까지 </v-card-subtitle> -->
             </v-img>
-            <v-card-subtitle class="font-weight-black">{{card.title}}</v-card-subtitle>
+            <v-card-subtitle class="font-weight-black">{{card.name}}</v-card-subtitle>
               <v-row class="ma-1">
                 <v-col>
                   <v-rating
@@ -111,7 +114,7 @@
                     color="yellow"
                     readonly
                     size="15"
-                    :value="card.ratio"
+                    :value="card.rate"
                   ></v-rating>    
                 </v-col>
                 <v-col>
@@ -148,6 +151,7 @@
 </template>
 
 <script>
+import axios from 'axios'
 export default {
   name: 'Recipe',
   data: () => ({
@@ -186,6 +190,11 @@ export default {
         '고급',
         '초고수'
       ],
+
+      // -------> recipeList
+      recipeList: [],
+      // <-----------------
+
       toggle_exclusive: undefined,
       currentPage: 1,
     page:1,
@@ -193,22 +202,34 @@ export default {
     emptyIcon: 'mdi-heart-outline',
     fullIcon: 'mdi-heart',
     halfIcon: 'mdi-heart-half',
-    cards: [
-      { title: '비건 양배추롤', src: 'https://recipe1.ezmember.co.kr/cache/recipe/2022/01/10/94cb79b94ff3f1ee571e60cde1868c0c1.jpg',ratio:5,views:100 },
-      { title: '쌀쌀한 날씨엔 얼큰한 김치우동', src: 'https://recipe1.ezmember.co.kr/cache/recipe/2022/01/06/a618beda7fe0dbbf75575e25c974ac961.jpg',ratio:4,views:100},
-      { title: '제철 회로 만든 초밥케이크', src: 'https://recipe1.ezmember.co.kr/cache/recipe/2022/01/04/90cb72e7f7b37d917d375e61e3dc4f311.jpg',ratio:3,views:150  },
-      { title: '쫀득한 치즈맛을 즐기고 싶다면! 브리치즈구이', src: 'https://recipe1.ezmember.co.kr/cache/recipe/2022/01/03/7367755aa2b8772f01efb70acc8154421.jpg',ratio:5 ,views:100},
-      { title: '영양까지 챙긴 든든한 한끼 훈제오리볶음우동', src: 'https://recipe1.ezmember.co.kr/cache/recipe/2022/01/06/a618beda7fe0dbbf75575e25c974ac961.jpg',ratio:4,views:100},
-      { title: '제철 회로 만든 초밥케이크', src: 'https://recipe1.ezmember.co.kr/cache/recipe/2022/01/04/90cb72e7f7b37d917d375e61e3dc4f311.jpg',ratio:3,views:150  },
-      { title: '비건 양배추롤', src: 'https://recipe1.ezmember.co.kr/cache/recipe/2022/01/10/94cb79b94ff3f1ee571e60cde1868c0c1.jpg',ratio:5,views:100 },
-      { title: '쌀쌀한 날씨엔 얼큰한 김치우동', src: 'https://recipe1.ezmember.co.kr/cache/recipe/2022/01/06/a618beda7fe0dbbf75575e25c974ac961.jpg',ratio:4,views:100},
-      { title: '제철 회로 만든 초밥케이크', src: 'https://recipe1.ezmember.co.kr/cache/recipe/2022/01/04/90cb72e7f7b37d917d375e61e3dc4f311.jpg',ratio:3,views:150  },
-      ],
+
     }),
+    created() {
+      this.getRecipeList();
+    },
+    methods: {
+
+      // ----------------------->RecipeController에서 데이터 가져옴.
+    getRecipeList() {
+      axios.post('http://localhost:9999/recipe/get-recipe-list.do')
+        .then((response) => {
+          if (response.data.success) {
+            console.log(response.data.result);
+            this.recipeList = response.data.result;
+          }
+        })
+        .catch(function(error) {
+          console.log(error);
+        });
+    },
+    // <------------------------------------------------------
+    
   methods:{
     SortPick(){
       console.log("clicked! : "+ this.toggle_exclusive);
     }
+  },
+
   }
 }
 </script>
