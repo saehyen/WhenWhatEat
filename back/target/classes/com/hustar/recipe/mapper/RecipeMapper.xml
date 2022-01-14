@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hustar.recipe.mapper.RecipeMapper">
+
+	<resultMap type="com.hustar.recipe.vo.RecipeVO" id="recipeMap">
+		<id property="id" column="id"></id>
+		<result property="name" column="name"/>
+		<result property="img" column="img"/>
+		<result property="summary" column="summary"/>
+		<result property="info1" column="info1"/>
+		<result property="info2" column="info2"/>
+		<result property="info3" column="info3"/>
+		<result property="rate" column="rate"/>
+		<result property="rateCount" column="rate_count"/>
+		<result property="views" column="views"/>
+		<result property="postDate" column="post_date"/>
+		</resultMap>
+		
+		<select id="getRecipeList" resultMap="recipeMap">
+				SELECT * FROM recipe
+		</select>
+
+</mapper>
