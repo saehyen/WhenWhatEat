@@ -26,7 +26,6 @@
         </v-chip-group>
          
          <v-chip-group
-          multiple
           active-class="primary--text"
         ><span style="line-height:40px; padding:0 5px;"> 소요시간 </span>
           <v-chip
