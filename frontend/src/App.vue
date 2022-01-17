@@ -8,6 +8,7 @@
       src="./assets/appbar.jpg"
       scroll-target="#scrolling-techniques-2"
     >
+    
     <v-app-bar-nav-icon @click="drawer = !drawer"></v-app-bar-nav-icon>
     <v-spacer/>
        <v-btn  to="/Login">
@@ -15,7 +16,9 @@
           size = "35">
           mdi-account-circle</v-icon>
         </v-btn>
+        
     </v-app-bar>
+    
   <v-navigation-drawer 
   v-model="drawer" 
   dark
@@ -33,12 +36,9 @@
   </template>
       <v-list-item>
         <v-list-item-content>
-          <v-list-item-title class="text-h5">
-            언제뭐무꼬
-          </v-list-item-title>
-          <v-list-item-subtitle>
-            레시피
-          </v-list-item-subtitle>
+            <router-link class="text-h5" style="text-decoration:none" to="/">
+            <img src="./assets/logo.png" width="220px">
+            </router-link>
         </v-list-item-content>
       </v-list-item>
 
@@ -81,11 +81,11 @@ export default {
   data: () => ({
     drawer:false,
     items: [
-          { title: '홈', icon: 'mdi-view-dashboard', to: '/' },
-          { title: '내냉장고', icon: 'mdi-image', to:'/Myrefrigerator'},
-          { title: '랭킹', icon: 'mdi-help-box', to:'/Ranking'},
-          { title: '레시피', icon: 'mdi-help-box', to:'/Recipe' },
-           { title: '테스트', icon: 'mdi-help-box', to:'/Test' },
+          { title: '홈', icon: 'mdi-home', to: '/' },
+          { title: '내냉장고', icon: 'mdi-nutrition', to:'/Myrefrigerator'},
+          { title: '랭킹', icon: 'mdi-chart-line', to:'/Ranking'},
+          { title: '레시피', icon: 'mdi-food', to:'/Recipe' },
+          { title: '테스트', icon: 'mdi-wrench', to:'/Test' },
         ],
         right: null,
   }),
