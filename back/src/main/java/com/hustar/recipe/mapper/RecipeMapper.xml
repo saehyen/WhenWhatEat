@@ -10,10 +10,11 @@
 		<result property="info1" column="info1"/>
 		<result property="info2" column="info2"/>
 		<result property="info3" column="info3"/>
+		<result property="ingre" column="ingre"/>
 		<result property="rate" column="rate"/>
-		<result property="rateCount" column="rate_count"/>
+		<result property="rate_count" column="rate_count"/>
 		<result property="views" column="views"/>
-		<result property="postDate" column="post_date"/>
+		<result property="post_date" column="post_date"/>
 		</resultMap>
 		
 		<select id="getRecipeList" resultMap="recipeMap">

@@ -27,7 +27,7 @@ public class RecipeController {
 	@CrossOrigin(origins = "*")
 	@ResponseBody
 	@RequestMapping(value = "get-recipe-list.do", method = RequestMethod.POST)
-	public ResultVO getRecipeList() throws IOException, ParseException {
+	public ResultVO getRecipeList() {
 
 		LOG.info("[GET] getRecipeList");
 
