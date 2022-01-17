@@ -54,7 +54,7 @@
   <v-row>
   <v-col>
   <v-card-title class="primary--text" >
-       총 <span style="text-decoration:underline">10000</span>개의 레시피가 검색되었습니다
+       총 <span style="text-decoration:underline">{{lengths}}</span>개의 레시피가 검색되었습니다
   </v-card-title>
   
   </v-col>
@@ -95,7 +95,7 @@
           :sm="12"
           :xs="12"
         >
-          <v-card 
+          <v-card @click="godetail(card.id)"
           >
             <v-img 
               :src="card.img"
@@ -105,20 +105,22 @@
             >
              <!-- <v-card-subtitle >{{ new Date().getYear()+1900 }}년{{ new Date().getMonth()+1 }}월{{ new Date().getDate() }}일까지 </v-card-subtitle> -->
             </v-img>
-            <v-card-subtitle class="font-weight-black">{{card.name}}</v-card-subtitle>
+            <v-card-subtitle style="font-size:13px" class="font-weight-black">{{card.name}}</v-card-subtitle>
               <v-row class="ma-1">
-                <v-col>
+                <v-col cols="5">
                   <v-rating
-                    v-model="rating"
-                    background-color="yellow"
-                    color="yellow"
+                    background-color="orange "
+                    color="orange  darken-3"
                     readonly
                     size="15"
-                    :value="card.rate"
+                    :value= card.rate
                   ></v-rating>    
-                </v-col>
+                </v-col 
+                  >
+                <v-col cols="3">
+                  <span style="font-size:12px; ">({{card.rate_count}}) </span>
+                   </v-col>
                 <v-col>
-                  <span style="font-size:12px">(10)  </span>
                   <span style="font-size:12px">조회수 : {{card.views}}</span>
                 </v-col>
             </v-row>
@@ -194,27 +196,33 @@ export default {
       // -------> recipeList
       recipeList: [],
       // <-----------------
-
-      toggle_exclusive: undefined,
-      currentPage: 1,
+    toggle_exclusive: undefined,
+    currentPage: 1,
     page:1,
     rating: 4,
+    rate_count:0,
     emptyIcon: 'mdi-heart-outline',
     fullIcon: 'mdi-heart',
     halfIcon: 'mdi-heart-half',
-
+    lengths : 0,
+    id : 0,
+    
     }),
     created() {
       this.getRecipeList();
     },
     methods: {
-
+    godetail(id){
+      this.$router.push('/Recipedetail/'+id);
+    },
       // ----------------------->RecipeController에서 데이터 가져옴.
     getRecipeList() {
       axios.post('http://10.1.4.112:9999/recipe/get-recipe-list.do')
         .then((response) => {
           if (response.data.success) {
             console.log(response.data.result);
+            console.log(response.data.result.length);
+            this.lengths = response.data.result.length;
             this.recipeList = response.data.result;
           }
         })
@@ -222,13 +230,13 @@ export default {
           console.log(error);
         });
     },
-    // <------------------------------------------------------
-    
-  methods:{
-    SortPick(){
+
+      SortPick(){
       console.log("clicked! : "+ this.toggle_exclusive);
     }
-  },
+
+    // <------------------------------------------------------
+    
 
   }
 }

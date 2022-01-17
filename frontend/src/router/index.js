@@ -31,12 +31,12 @@ const routes = [
 		, component: ()=> import('../views/Ranking.vue')
 	},
 	{
-		path:'/Ingredient'
+		path:'/Ingredient/:id'
 		,name:'Ingredient'
 		, component: ()=> import('../views/Ingredient.vue')
 	},
 	{
-		path:'/Recipedetail'
+		path:'/Recipedetail/:id'
 		,name:'Recipedetail'
 		, component: ()=> import('../views/Recipedetail.vue')
 	 },
