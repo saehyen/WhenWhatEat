@@ -70,7 +70,7 @@
           :xs="6"
         >
           <v-card v-if="card.num!=0"
-          :to="card.to"
+          @click="godetail(card.detail_id)"
           >
             <v-img 
               :src="card.src"
@@ -93,20 +93,24 @@ export default {
   name: 'Myrefrigerator',
   data(){
     return{
+      godetail(id){
+      this.$router.push('/Ingredient/'+id);
+      },
       cards: [
-    { title: '가쓰오부시', src: 'https://cdn.pixabay.com/photo/2015/09/30/10/03/of-965193__480.jpg', expiration_date:"2022-01-25" ,to:"/Ingredient"},
-    { title: '간장', src: 'https://cdn.pixabay.com/photo/2019/11/25/15/22/soy-sauce-4652303__480.jpg', expiration_date:"2022-01-28" },
-    { title: '강력분', src: 'https://cdn.pixabay.com/photo/2016/08/09/22/23/flour-1581967__480.jpg', expiration_date:"2022-01-29"  },
-    { title: '견과류' , src: 'https://cdn.pixabay.com/photo/2017/05/14/16/52/walnuts-2312506__340.jpg', expiration_date:"2022-01-25"  },
-    { title: '계란' , src: 'https://cdn.pixabay.com/photo/2016/07/11/19/40/eggs-1510449__480.jpg', expiration_date:"2022-01-25" },
-    { title: '고다치즈' , src: 'https://cdn.pixabay.com/photo/2017/01/11/19/56/cheese-1972744__480.jpg', expiration_date:"2022-01-25" },
-    { title: '고추기름', src: 'https://cdn.pixabay.com/photo/2016/08/15/20/29/olive-oil-1596417__340.jpg', expiration_date:"2022-01-25" },
-    { title: '고춧가루', src: 'https://cdn.pixabay.com/photo/2017/05/23/03/19/red-pepper-2336042__340.jpg', expiration_date:"2022-01-25" },
-    { title: '과일치즈', src: 'https://cdn.pixabay.com/photo/2020/05/03/13/23/cheese-5125021__340.jpg', expiration_date:"2022-01-25" },
-    { title: '광어회', src: 'https://cdn.pixabay.com/photo/2017/02/14/01/39/flounder-times-2064403__340.jpg', expiration_date:"2022-01-25" },
-    { title: '국간장', src: 'https://cdn.pixabay.com/photo/2016/03/31/18/17/asian-1294266__340.png', expiration_date:"2022-01-25" },
-    { title: '굴소스', src: 'https://cdn.pixabay.com/photo/2014/12/22/00/04/bottle-576717__480.png', expiration_date:"2022-01-25"}
+    { detail_id:1,title: '가쓰오부시', src: 'https://cdn.pixabay.com/photo/2015/09/30/10/03/of-965193__480.jpg', expiration_date:"2022-01-25" ,to:"/Ingredient"},
+    { detail_id:2,title: '간장', src: 'https://cdn.pixabay.com/photo/2019/11/25/15/22/soy-sauce-4652303__480.jpg', expiration_date:"2022-01-28" },
+    { detail_id:3,title: '강력분', src: 'https://cdn.pixabay.com/photo/2016/08/09/22/23/flour-1581967__480.jpg', expiration_date:"2022-01-29"  },
+    { detail_id:4,title: '견과류' , src: 'https://cdn.pixabay.com/photo/2017/05/14/16/52/walnuts-2312506__340.jpg', expiration_date:"2022-01-25"  },
+    { detail_id:5,title: '계란' , src: 'https://cdn.pixabay.com/photo/2016/07/11/19/40/eggs-1510449__480.jpg', expiration_date:"2022-01-25" },
+    { detail_id:6,title: '고다치즈' , src: 'https://cdn.pixabay.com/photo/2017/01/11/19/56/cheese-1972744__480.jpg', expiration_date:"2022-01-25" },
+    { detail_id:7,title: '고추기름', src: 'https://cdn.pixabay.com/photo/2016/08/15/20/29/olive-oil-1596417__340.jpg', expiration_date:"2022-01-25" },
+    { detail_id:8,title: '고춧가루', src: 'https://cdn.pixabay.com/photo/2017/05/23/03/19/red-pepper-2336042__340.jpg', expiration_date:"2022-01-25" },
+    { detail_id:9,title: '과일치즈', src: 'https://cdn.pixabay.com/photo/2020/05/03/13/23/cheese-5125021__340.jpg', expiration_date:"2022-01-25" },
+    { detail_id:10,title: '광어회', src: 'https://cdn.pixabay.com/photo/2017/02/14/01/39/flounder-times-2064403__340.jpg', expiration_date:"2022-01-25" },
+    { detail_id:11,title: '국간장', src: 'https://cdn.pixabay.com/photo/2016/03/31/18/17/asian-1294266__340.png', expiration_date:"2022-01-25" },
+    { detail_id:12,title: '굴소스', src: 'https://cdn.pixabay.com/photo/2014/12/22/00/04/bottle-576717__480.png', expiration_date:"2022-01-25"}
     ],
+      
       user_name : "백동채",
       selingredient : '',
       dialog2: false,
@@ -261,7 +265,6 @@ export default {
     
   },
   method:{
-    
   }
 }
 </script>

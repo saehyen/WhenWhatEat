@@ -123,11 +123,29 @@ export default {
             info2:"30분이내",
             info3:"아무나",
             views:100,
-            post_date:"2022-01-13 12:09:51"
+            post_date:"2022-01-13 12:09:51",
+            Recipe_id : this.$route.params.id,
         }
     },
     methods :{
+        getRecipedetail(){
+        axios.get('http://localhost:9999/Recipedetail?id='+this.Recipe_id)
+        .then(res =>{ 
+            //console.log(res);
+            this.lists = res.data;
+            this.gettime();
+            this.count_date();
+            this.get_donationdetail();
+            //console.log(this.lists);
+        })
+        .catch(error => 
+            console.log(error))
+    },
+    created(){
+      this.getRecipedetail();
         
+        
+      }
     }
 }
 
