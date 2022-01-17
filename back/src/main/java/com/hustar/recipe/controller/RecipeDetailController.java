@@ -1,8 +1,5 @@
 package com.hustar.recipe.controller;
 
-import java.io.IOException;
-
-import org.json.simple.parser.ParseException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,32 +9,32 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.hustar.recipe.service.RecipeService;
+import com.hustar.recipe.service.RecipeDetailService;
 import com.hustar.recipe.vo.ResultVO;
 
 @Controller
-@RequestMapping("recipe/")
-public class RecipeController {
-
-	private static final Logger LOG = LoggerFactory.getLogger(RecipeController.class);
-
+@RequestMapping("recipeDetail/")
+public class RecipeDetailController {
+	
+	private static final Logger LOG = LoggerFactory.getLogger(RecipeDetailController.class);
+	
 	@Autowired
-	RecipeService recipeService;
-
+	RecipeDetailService recipeDetailService;
+	
 	@CrossOrigin(origins = "*")
 	@ResponseBody
-	@RequestMapping(value = "get-recipe-list.do", method = RequestMethod.POST)
-	public ResultVO getRecipeList() {
+	@RequestMapping(value = "get-recipe-detail-list.do", method = RequestMethod.POST)
+	public ResultVO getRecipeDetailList() {
 
-		LOG.info("[POST] getRecipeList");
+		LOG.info("[POST] getRecipeDetailList");
 
 		ResultVO result = new ResultVO(false, null);
 
 		try {
-			result.setResult(recipeService.getRecipeList());
+			result.setResult(recipeDetailService.getRecipeDetailList());
 			result.setSuccess(true);
 		} catch (Exception e) {
-			LOG.error("[Recipe] getRecipeList : " + e.getMessage(), e);
+			LOG.error("[Recipe] getRecipeDetailList : " + e.getMessage(), e);
 		}
 
 		return result;
