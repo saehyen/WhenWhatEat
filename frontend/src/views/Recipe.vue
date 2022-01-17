@@ -211,7 +211,7 @@ export default {
 
       // ----------------------->RecipeController에서 데이터 가져옴.
     getRecipeList() {
-      axios.post('http://localhost:9999/recipe/get-recipe-list.do')
+      axios.post('http://10.1.4.112:9999/recipe/get-recipe-list.do')
         .then((response) => {
           if (response.data.success) {
             console.log(response.data.result);
