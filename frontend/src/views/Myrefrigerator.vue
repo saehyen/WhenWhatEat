@@ -70,6 +70,7 @@
           :xs="6"
         >
           <v-card v-if="card.num!=0"
+          :to="card.to"
           >
             <v-img 
               :src="card.src"
@@ -93,7 +94,7 @@ export default {
   data(){
     return{
       cards: [
-    { title: '가쓰오부시', src: 'https://cdn.pixabay.com/photo/2015/09/30/10/03/of-965193__480.jpg', expiration_date:"2022-01-25" },
+    { title: '가쓰오부시', src: 'https://cdn.pixabay.com/photo/2015/09/30/10/03/of-965193__480.jpg', expiration_date:"2022-01-25" ,to:"/Ingredient"},
     { title: '간장', src: 'https://cdn.pixabay.com/photo/2019/11/25/15/22/soy-sauce-4652303__480.jpg', expiration_date:"2022-01-28" },
     { title: '강력분', src: 'https://cdn.pixabay.com/photo/2016/08/09/22/23/flour-1581967__480.jpg', expiration_date:"2022-01-29"  },
     { title: '견과류' , src: 'https://cdn.pixabay.com/photo/2017/05/14/16/52/walnuts-2312506__340.jpg', expiration_date:"2022-01-25"  },

@@ -15,6 +15,7 @@
           :xs="12"
         >
           <v-card 
+           :to="card.to"
           >
             <v-img 
               :src="card.src"
@@ -69,7 +70,7 @@ export default {
     fullIcon: 'mdi-heart',
     halfIcon: 'mdi-heart-half',
     cards: [
-      { title: '비건 양배추롤', src: 'https://recipe1.ezmember.co.kr/cache/recipe/2022/01/10/94cb79b94ff3f1ee571e60cde1868c0c1.jpg',ratio:5,views:100 },
+      { title: '비건 양배추롤', src: 'https://recipe1.ezmember.co.kr/cache/recipe/2022/01/10/94cb79b94ff3f1ee571e60cde1868c0c1.jpg',ratio:5,views:100,to:'Recipedetail' },
       { title: '쌀쌀한 날씨엔 얼큰한 김치우동', src: 'https://recipe1.ezmember.co.kr/cache/recipe/2022/01/06/a618beda7fe0dbbf75575e25c974ac961.jpg',ratio:4,views:100},
       { title: '제철 회로 만든 초밥케이크', src: 'https://recipe1.ezmember.co.kr/cache/recipe/2022/01/04/90cb72e7f7b37d917d375e61e3dc4f311.jpg',ratio:3,views:150  },
       { title: '비건 양배추롤', src: 'https://recipe1.ezmember.co.kr/cache/recipe/2022/01/10/94cb79b94ff3f1ee571e60cde1868c0c1.jpg',ratio:5 ,views:100},
