@@ -36,17 +36,7 @@
             {{ times }}
           </v-chip>
         </v-chip-group>
-        <v-chip-group
-          multiple
-          active-class="primary--text"
-        ><span style="line-height:40px; padding:0 5px;"> 난이도 </span>
-          <v-chip
-            v-for="difficulty in difficulties"
-            :key="difficulty"
-          >
-            {{ difficulty }}
-          </v-chip>
-        </v-chip-group>
+        
       </v-sheet>
     </v-col>
   </v-row>
@@ -54,7 +44,7 @@
   <v-row>
   <v-col>
   <v-card-title class="primary--text" >
-       총 <span style="text-decoration:underline">{{lengths}}</span>개의 레시피가 검색되었습니다
+       총 <span style="text-decoration:underline"> {{lengths}} </span> 개의 레시피가 검색되었습니다
   </v-card-title>
   
   </v-col>
@@ -80,16 +70,13 @@
         rounded
   > 
   <!-- 92번째 줄 cards에서 recipeList로 수정함 / title => name, src => img, ratio => rate 이렇게 db에 있는 값 이름으로 처리 -->
-    <v-card-title class="primary--text" >
-       Ranking
-     </v-card-title>
+    
     <v-row dense class="ma-1 ">
         <v-col 
          class="pa-2"
           outlined
           tile
-          
-          v-for="card in recipeList"
+          v-for="card in recipeList.slice((currentPage-1)*9,(currentPage)*9)"
           :key="card.num"
           :md="4"
           :sm="12"
@@ -105,12 +92,12 @@
             >
              <!-- <v-card-subtitle >{{ new Date().getYear()+1900 }}년{{ new Date().getMonth()+1 }}월{{ new Date().getDate() }}일까지 </v-card-subtitle> -->
             </v-img>
-            <v-card-subtitle style="font-size:13px" class="font-weight-black">{{card.name}}</v-card-subtitle>
+            <v-card-subtitle style="text-overflow: ellipsis; white-space:nowrap; overflow:hidden;" class="font-weight-black">{{card.name}}</v-card-subtitle>
               <v-row class="ma-1">
                 <v-col cols="5">
                   <v-rating
                     background-color="orange "
-                    color="orange  darken-3"
+                    color="orange darken-3"
                     readonly
                     size="15"
                     :value= card.rate
@@ -118,7 +105,8 @@
                 </v-col 
                   >
                 <v-col cols="3">
-                  <span style="font-size:12px; ">({{card.rate_count}}) </span>
+                  <span style="font-size:12px">{{card.rate }} </span>
+                  <span style="font-size:12px">({{card.rate_count }}) </span>
                    </v-col>
                 <v-col>
                   <span style="font-size:12px">조회수 : {{card.views}}</span>
@@ -130,7 +118,7 @@
       <div class="text-center">
         <v-pagination class="ma-8"
           v-model="page"
-          :length="4"
+          :length= Math.ceil(lengths/9)
           @input="handlePageChange"
           prev-icon="mdi-menu-left"
           next-icon="mdi-menu-right"
@@ -159,18 +147,18 @@ export default {
   data: () => ({
       indredients: [
         '전체',
-        '소고기',
-        '돼지고기',
-        '닭고기',
-        '기타고기',
+        '고기',
         '해물',
-        '과일',
         '채소',
-        '달걀/유제품',
-        '가공식품류',
-        '쌀',
+        '과일',
         '밀가루',
-        '곡류',
+        '쌀',
+        '달걀/유제품',
+        '콩/견과류',
+        '가공식품',
+        '김치/젓갈/장류',
+        '버섯',
+        '양념/소스',
         '기타'
       ],
       time_takens:[
@@ -184,17 +172,9 @@ export default {
         '2시간 이내',
         '2시간 이상'
       ],
-      difficulties:[
-        '전체',
-        '아무나',
-        '초급',
-        '중급',
-        '고급',
-        '초고수'
-      ],
 
       // -------> recipeList
-      recipeList: [],
+    recipeList: [],
       // <-----------------
     toggle_exclusive: undefined,
     currentPage: 1,
@@ -230,9 +210,12 @@ export default {
           console.log(error);
         });
     },
-
-      SortPick(){
+    SortPick(){
       console.log("clicked! : "+ this.toggle_exclusive);
+    },
+    handlePageChange(value) {
+      this.currentPage = value;
+      console.log(this.currentPage);
     }
 
     // <------------------------------------------------------

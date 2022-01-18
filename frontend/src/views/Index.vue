@@ -12,12 +12,10 @@
               :src="card.src"
               class="white--text align-end"
               gradient="to bottom, rgba(0,0,0,.1), rgba(0,0,0,.5)"
-              height="300px"
+              height="240px"
             >
               <v-card-title v-text="card.title"></v-card-title>
             </v-img>
-
-            
           </v-card>
         </v-col>
       </v-row>
@@ -34,7 +32,7 @@
             class="mx-auto"
             elevation="5"
             width="100%"
-            height="300"
+            height="260"
           >
             <v-slide-group
               v-model="model"
@@ -99,25 +97,10 @@
             @error="error"
             ref="youtube" />
             <v-card-title class="text-center justify-center font-weight-black" >한식</v-card-title>
-            <v-card-subtitle >존맛탱</v-card-subtitle>
+            <v-card-subtitle >달걀볶음밥</v-card-subtitle>
             
       </v-col>
-      <v-col tile
-      align="center"  >
-         <youtube class="youtube"
-            :height= "200"
-            :width= "300"  
-            :video-id= videoId[1]
-            :player-vars="playerVars"
-            @ready="ready"
-            @playing="playing"
-            @ended="ended"
-            @error="error"
-            ref="youtube" />
-            <v-card-title class=" text-center justify-center font-weight-black">중식</v-card-title>
-            <v-card-subtitle >존맛탱</v-card-subtitle>
-            
-        </v-col>
+      
         <v-col align="center" >
             <youtube class="youtube"
               :height= 200
@@ -130,8 +113,24 @@
               @error="error"
               ref="youtube" />
               <v-card-title class= "text-center justify-center font-weight-black">양식</v-card-title>
-              <v-card-subtitle class="font-content">존맛탱</v-card-subtitle>
+              <v-card-subtitle class="font-content">각국 면 요리</v-card-subtitle>
               
+        </v-col>
+        <v-col tile
+      align="center"  >
+         <youtube class="youtube"
+            :height= "200"
+            :width= "300"  
+            :video-id= videoId[1]
+            :player-vars="playerVars"
+            @ready="ready"
+            @playing="playing"
+            @ended="ended"
+            @error="error"
+            ref="youtube" />
+            <v-card-title class=" text-center justify-center font-weight-black">디저트</v-card-title>
+            <v-card-subtitle >뱅쇼</v-card-subtitle>
+            
         </v-col>
       </v-row>
      </v-card>
@@ -148,8 +147,9 @@
       onboarding: 0,
       videoId: ['kR77WlHRZrs','dQnjf9ouGgk','uYapP-gOAVU'],
       cards: [
-      { title: '타이틀', src: 'https://cdn.vuetifyjs.com/images/cards/house.jpg', flex: 12 }
+      { title: 'R', src: 'https://cdn.pixabay.com/photo/2015/09/21/14/23/supermarket-949912_1280.jpg', flex: 12 }
     ],
+    // src="./assets/Logo.jpg
     }),
     computed: {
         playerVars() {
@@ -157,7 +157,7 @@
             //controls: 0,
             player3: Object,
             rel: 0,
-            autoplay: 1,
+            autoplay: 0,
             enablejsapi: 1,
             fs: 0,
             playsinline: 1,

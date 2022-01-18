@@ -1,7 +1,5 @@
 package com.hustar.recipe.vo;
 
-import java.util.Date;
-import java.util.List;
 
 import lombok.Data;
 
@@ -19,6 +17,6 @@ public class RecipeVO {
 	private Double rate;
 	private int rate_count;
 	private int views;
-	private Date post_date;
+	private String post_date;
 
 }
