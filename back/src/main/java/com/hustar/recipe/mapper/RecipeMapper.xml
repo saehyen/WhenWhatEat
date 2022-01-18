@@ -17,23 +17,8 @@
 		<result property="post_date" column="post_date"/>
 		</resultMap>
 		
-			<resultMap type="com.hustar.recipe.vo.RecipeDetailVO" id="recipeDetailMap">
-		<id property="detail_idx" column="detail_idx"></id>
-		<id property="detail_id" column="detail_id"></id>
-		<id property="detail_txt" column="detail_txt"></id>
-		<id property="detail_img" column="detail_img"></id>
-		</resultMap>
-		
 		<select id="getRecipeList" resultMap="recipeMap">
 				SELECT * FROM recipe
 		</select>
-		
-	<select id="getRecipeDetailList" resultMap="recipeMap">
-		SELECT * FROM recipe WHERE id = #{id}
-	</select>
-	
-	<select id="getRecipeDetail" resultMap="recipeDetailMap">
-		SELECT * FROM recipe_detail WHERE detail_id = #{id}
-	</select>
 
 </mapper>

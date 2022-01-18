@@ -8,28 +8,28 @@ import org.apache.ibatis.session.SqlSessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.hustar.recipe.mapper.RecipeMapper;
-import com.hustar.recipe.vo.RecipeVO;
+import com.hustar.recipe.mapper.RecipeDetailMapper;
+import com.hustar.recipe.vo.RecipeDetailVO;
 
 @Service
-public class RecipeService implements RecipeServiceIF{
+public class RecipeDetailService implements RecipeDetailServiceIF{
 	
 	@Autowired
 	private SqlSessionFactory sqlSessionFactory;
 
 	@Override
-	public List<RecipeVO> getRecipeList() {
+	public List<RecipeDetailVO> getRecipeDetailList() {
 
-		List<RecipeVO> recipeList = new ArrayList<RecipeVO>();
+		List<RecipeDetailVO> recipeDetailList = new ArrayList<RecipeDetailVO>();
 		
 		try (SqlSession session = sqlSessionFactory.openSession()) {
-			RecipeMapper mapper = session.getMapper(RecipeMapper.class);
+			RecipeDetailMapper mapper = session.getMapper(RecipeDetailMapper.class);
 			
-				recipeList = mapper.getRecipeList();
+				recipeDetailList = mapper.getRecipeDetailList();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		return recipeList;
+		return recipeDetailList;
 	}
 
 }

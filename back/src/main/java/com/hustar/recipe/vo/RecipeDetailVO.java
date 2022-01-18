@@ -6,7 +6,7 @@ import lombok.Data;
 public class RecipeDetailVO {
 	private long detail_idx;
 	private long detail_id;
-	private String detail_txt;
+	private String detail_text;
 	private String detail_img;
 
 }
