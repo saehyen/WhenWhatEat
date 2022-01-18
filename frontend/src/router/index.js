@@ -31,6 +31,11 @@ const routes = [
 		, component: ()=> import('../views/Ranking.vue')
 	},
 	{
+		path:'/Admin'
+		,name:'Admin'
+		, component: ()=> import('../views/Admin.vue')
+	},
+	{
 		path:'/Ingredient/:id'
 		,name:'Ingredient'
 		, component: ()=> import('../views/Ingredient.vue')
