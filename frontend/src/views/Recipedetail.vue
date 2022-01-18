@@ -48,8 +48,8 @@
          class="pa-2"
           outlined
           tile
-          v-for="card in detail_txt.length-1"
-          :key="card.num"
+          v-for="list in lists"
+          :key="list"
           :md="12"
           :sm="12"
           :xs="12"
@@ -58,14 +58,14 @@
           >
             <v-img 
                 style="object-fit:cover"
-              :src="detail_img[card]"
+              :src= list.detail_img
               class="white--text align-end"
               gradient="to bottom, rgba(0,0,0,.1), rgba(0,0,0,.5)"
               height="200px"
             >
              <!-- <v-card-subtitle >{{ new Date().getYear()+1900 }}년{{ new Date().getMonth()+1 }}월{{ new Date().getDate() }}일까지 </v-card-subtitle> -->
             </v-img>
-            <v-card-subtitle class="font-weight-black">{{detail_txt[card]}}</v-card-subtitle>
+            <v-card-subtitle class="font-weight-black">{{list.detail_txt}}</v-card-subtitle>
               <v-row class="ma-1">
             </v-row>
           </v-card>
@@ -101,6 +101,7 @@
 </template>
 
 <script>
+import axios from 'axios'
 export default {
     name: 'Recipedetail',
     data(){
@@ -125,28 +126,27 @@ export default {
             views:100,
             post_date:"2022-01-13 12:09:51",
             Recipe_id : this.$route.params.id,
+            lists:[],
         }
     },
     methods :{
-        getRecipedetail(){
-        axios.get('http://localhost:9999/Recipedetail?id='+this.Recipe_id)
+      getRecipedetail(){
+        console.log("start");
+        axios.get('http://10.1.4.112:9999/recipe/recipeDetail?id='+this.Recipe_id)
         .then(res =>{ 
-            //console.log(res);
-            this.lists = res.data;
-            this.gettime();
-            this.count_date();
-            this.get_donationdetail();
-            //console.log(this.lists);
+          console.log(res.data.result);
+          this.lists = res.data.result;
         })
         .catch(error => 
             console.log(error))
-    },
-    created(){
+        }
+        
+    },   
+    
+    created() {
+      console.log(this.Recipe_id);
       this.getRecipedetail();
-        
-        
-      }
-    }
+  }
 }
 
 </script>
