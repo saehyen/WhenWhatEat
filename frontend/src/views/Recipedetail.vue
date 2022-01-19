@@ -15,10 +15,10 @@
 
     <v-img style="object-fit:cover"
       max-height="250"
-      :src = srcs
+      :src = recipe[0].img
     ></v-img>
 
-    <v-card-title>{{title}}</v-card-title>
+    <v-card-title>{{recipe[0].name}}</v-card-title>
 
     <v-card-text>
       <v-row
@@ -26,7 +26,7 @@
         class="mx-0"
       >
         <v-rating
-          :value="4.5"
+          :value="recipe[0].rate"
           color="amber"
           dense
           half-increments
@@ -35,12 +35,12 @@
         ></v-rating>
 
         <div class="grey--text ms-4">
-        {{rate}} ({{rate_count}})
+        {{recipe[0].rate}} ({{recipe[0].rate_count}})
         </div>
       </v-row>
 
       <div class="my-4 text-subtitle-1">
-        {{info1}} / {{info2}} /{{info3}}
+        {{recipe[0].info1}} / {{recipe[0].info2}} /{{recipe[0].info3}}
       </div>
 
       <v-row dense class="ma-1 ">
@@ -79,7 +79,7 @@
 
     <v-card-text>
       <v-rating
-          :value="4.5"
+          :value="recipe[0].rate"
           color="amber"
           dense
           half-increments
@@ -127,6 +127,7 @@ export default {
             post_date:"2022-01-13 12:09:51",
             Recipe_id : this.$route.params.id,
             lists:[],
+            recipe:[],
         }
     },
     methods :{
@@ -134,18 +135,27 @@ export default {
         console.log("start");
         axios.get('http://10.1.4.112:9999/recipe/recipeDetail?id='+this.Recipe_id)
         .then(res =>{ 
-          console.log(res.data.result);
           this.lists = res.data.result;
         })
         .catch(error => 
             console.log(error))
-        }
-        
-    },   
+        },
+      getRecipe(){
+        console.log("start");
+        axios.get('http://10.1.4.112:9999/recipe/recipeInfo?id='+this.Recipe_id)
+        .then(res =>{ 
+          console.log(res.data.result);
+          this.recipe = res.data.result;
+        })
+        .catch(error => 
+            console.log(error))
+        },
+      },
     
     created() {
       console.log(this.Recipe_id);
       this.getRecipedetail();
+      this.getRecipe();
   }
 }
 

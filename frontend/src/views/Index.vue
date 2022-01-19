@@ -14,7 +14,7 @@
               gradient="to bottom, rgba(0,0,0,.1), rgba(0,0,0,.5)"
               height="240px"
             >
-              <v-card-title v-text="card.title"></v-card-title>
+              <v-card-title class="text-h4 font-weight-black" v-text="card.title" ></v-card-title>
             </v-img>
           </v-card>
         </v-col>
@@ -35,13 +35,13 @@
             height="260"
           >
             <v-slide-group
+            cycle
               v-model="model"
               class="pa-3"
-              center-active
               show-arrows
             >
               <v-slide-item
-                v-for="n in 5"
+                v-for="n in 6"
                 :key="n"
                 v-slot="{ active, toggle }"
               >              
@@ -49,7 +49,7 @@
                   :color="active ? 'primary' : 'grey lighten-1'"
                   class="ma-4"
                   height="200"
-                  width="300"
+                  :width="widths"
                   @click="toggle"
                 >
                   <v-row
@@ -84,54 +84,21 @@
     <v-card-title class="text-h5 font-weight-black">
     유튜브 레시피
   </v-card-title>
-    <v-row >
-      <v-col tile align="center">
+    <v-row>
+      <v-col v-for="n in 3" :key="n" cols="12" tile align="center" md="4">
          <youtube class="youtube"
-            :height= "200"
-            :width= "300"  
-            :video-id= videoId[0]
+            :height= height
+            :width= width  
+            :video-id= videoId[n-1]
             :player-vars="playerVars"
             @ready="ready"
             @playing="playing"
             @ended="ended"
             @error="error"
             ref="youtube" />
-            <v-card-title class="text-center justify-center font-weight-black" >한식</v-card-title>
-            <v-card-subtitle >달걀볶음밥</v-card-subtitle>
-            
+            <v-card-title class="text-center justify-center font-weight-black" >{{video_name[n-1]}}</v-card-title>
+            <v-card-subtitle > {{video_subname[n-1]}} </v-card-subtitle>
       </v-col>
-      
-        <v-col align="center" >
-            <youtube class="youtube"
-              :height= 200
-              :width= 300  
-              :video-id = videoId[2]
-              :player-vars="playerVars"
-              @ready="ready"
-              @playing="playing"
-              @ended="ended"
-              @error="error"
-              ref="youtube" />
-              <v-card-title class= "text-center justify-center font-weight-black">양식</v-card-title>
-              <v-card-subtitle class="font-content">각국 면 요리</v-card-subtitle>
-              
-        </v-col>
-        <v-col tile
-      align="center"  >
-         <youtube class="youtube"
-            :height= "200"
-            :width= "300"  
-            :video-id= videoId[1]
-            :player-vars="playerVars"
-            @ready="ready"
-            @playing="playing"
-            @ended="ended"
-            @error="error"
-            ref="youtube" />
-            <v-card-title class=" text-center justify-center font-weight-black">디저트</v-card-title>
-            <v-card-subtitle >뱅쇼</v-card-subtitle>
-            
-        </v-col>
       </v-row>
      </v-card>
   </v-container>
@@ -145,13 +112,24 @@
   data: () => ({
       length: 3,
       onboarding: 0,
+      width : '100%',
+      height : '210',
       videoId: ['kR77WlHRZrs','dQnjf9ouGgk','uYapP-gOAVU'],
+      video_name:['한식','양식','디저트'],
+      video_subname:['달걀볶음밥','각국 면요리','뱅쇼'],
       cards: [
-      { title: 'R', src: 'https://cdn.pixabay.com/photo/2015/09/21/14/23/supermarket-949912_1280.jpg', flex: 12 }
+      { title: '냉장고는 가볍게 입 안을 즐겁게', src: 'https://cdn.pixabay.com/photo/2015/09/21/14/23/supermarket-949912_1280.jpg', flex: 12 }
     ],
-    // src="./assets/Logo.jpg
     }),
     computed: {
+      widths () {
+        switch (this.$vuetify.breakpoint.name) {
+          case 'xs': return 150
+          case 'sm' : return 160
+          case 'md': return 210
+          case 'lg': return 215
+          case 'xl': return 370
+        }},
         playerVars() {
           return {
             //controls: 0,
