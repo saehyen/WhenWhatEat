@@ -4,22 +4,19 @@
     class="mx-auto"
   >
     <v-img
-      src="https://cdn.pixabay.com/photo/2015/09/30/10/03/of-965193__480.jpg"
+      :src= 'ingredients.prod_img'
       max-height="200px"
     ></v-img>
 
     <v-card-title>
-      {{Recipe_id}}번 재료 재료이름 표시
+      {{ingredients.prod_name}}
     </v-card-title>
 
     <v-card-subtitle>
-      {{Recipe_id}}번 재료 유통기한 및 남은 시간 표시하는곳
+      유통기한 : {{ingredients.prod_exp}} 까지
     </v-card-subtitle>
 
     <v-card-actions>
-      
-
-      
       <v-btn
         color="orange darken-2"
         text
@@ -58,20 +55,35 @@
 </template>
 
 <script>
+import axios from 'axios'
 export default {
     name: 'Ingredient',
     data(){
         return{
           Recipe_id : this.$route.params.id, 
           show: false,
+          ingredients:[],
         }
     },
     methods :{
       useIngredient(){
         this.$router.push('/Myrefrigerator');
         console.log("home");
-        
-      }
+      },
+      getIndredient(){
+        console.log("start");
+        axios.get('http://10.1.4.112:9999/myrefrigerator/myrefrigerator?uid=2')
+        .then(res =>{ 
+          this.ingredients=res.data.result[this.Recipe_id];
+          console.log(this.ingredients)
+        })
+        .catch(error => 
+            console.log(error))
+        },
+
+    },
+    created(){
+      this.getIndredient();
     }
 }
 
