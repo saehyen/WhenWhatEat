@@ -10,7 +10,15 @@ public interface RecipeServiceIF {
 	
 	public List<RecipeVO> getRecipeList();
 	
-	public RecipeVO getRecipeDetailList(Long id);
+	public List<RecipeVO> getRecipeDetailList(Long id);
 	
-	public List<RecipeDetailVO> getRecipeDetail(Long id);
+	public List<RecipeDetailVO> getRecipeDetail(Long detail_id);
+	
+	public List<RecipeVO> getTopRecipe();
+	
+	public List<RecipeVO> getRecommendRecipe(Long uid);
+	
+	public List<RecipeVO> getRecipeRate();
+	
+	public List<RecipeVO> getRecipeViews();
 }

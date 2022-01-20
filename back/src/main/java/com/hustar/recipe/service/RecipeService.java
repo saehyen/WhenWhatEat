@@ -20,8 +20,6 @@ public class RecipeService implements RecipeServiceIF {
 	private SqlSessionFactory sqlSessionFactory;
 
 
-
-
 	@Override
 	public List<RecipeVO> getRecipeList() {
 
@@ -37,29 +35,36 @@ public class RecipeService implements RecipeServiceIF {
 		return recipeList;
 	}
 	
-	public RecipeVO getRecipeDetailList(Long id) {
-		RecipeVO recipe = new RecipeVO();
+	@Override
+	public List<RecipeVO> getRecipeDetailList(Long id) {
+		List<RecipeVO> recipe = new ArrayList<RecipeVO>();
 		
 		try (SqlSession session = sqlSessionFactory.openSession()) {
 			RecipeMapper mapper = session.getMapper(RecipeMapper.class);
  
 			recipe = mapper.getRecipeDetailList(id);
+			mapper.updateViews(id);
  
 		} catch (Exception e) {
 			// TODO: handle exception
 			e.printStackTrace();
 		}
+		
+		
+		
+		
 		return recipe;
 	}
 	
-	public List<RecipeDetailVO> getRecipeDetail(Long id) {
+	@Override
+	public List<RecipeDetailVO> getRecipeDetail(Long detail_id) {
 //		RecipeDetailVO recipeDetail = new RecipeDetailVO();
 		List<RecipeDetailVO> recipeDetail = new ArrayList<RecipeDetailVO>();
-		
+		System.out.println(detail_id);
 		try (SqlSession session = sqlSessionFactory.openSession()) {
 			RecipeMapper mapper = session.getMapper(RecipeMapper.class);
  
-			recipeDetail = mapper.getRecipeDetail(id);
+			recipeDetail = mapper.getRecipeDetail(detail_id);
  
 		} catch (Exception e) {
 			// TODO: handle exception
@@ -68,8 +73,65 @@ public class RecipeService implements RecipeServiceIF {
 		return recipeDetail;
 	}
 	
+	@Override
+	public List<RecipeVO> getTopRecipe() {
+
+		List<RecipeVO> recipeList = new ArrayList<RecipeVO>();
+
+		try (SqlSession session = sqlSessionFactory.openSession()) {
+			RecipeMapper mapper = session.getMapper(RecipeMapper.class);
+
+			recipeList = mapper.getTopRecipe();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return recipeList;
+	}
 	
+	@Override
+	public List<RecipeVO> getRecommendRecipe(Long uid) {
 
+		List<RecipeVO> recipeList = new ArrayList<RecipeVO>();
 
+		try (SqlSession session = sqlSessionFactory.openSession()) {
+			RecipeMapper mapper = session.getMapper(RecipeMapper.class);
 
+			recipeList = mapper.getRecommendRecipe(uid);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return recipeList;
+	}
+
+	
+	@Override
+	public List<RecipeVO> getRecipeRate() {
+
+		List<RecipeVO> recipeRate = new ArrayList<RecipeVO>();
+
+		try (SqlSession session = sqlSessionFactory.openSession()) {
+			RecipeMapper mapper = session.getMapper(RecipeMapper.class);
+
+			recipeRate = mapper.getRecipeRate();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return recipeRate;
+	}
+	
+	@Override
+	public List<RecipeVO> getRecipeViews() {
+
+		List<RecipeVO> recipeViews = new ArrayList<RecipeVO>();
+
+		try (SqlSession session = sqlSessionFactory.openSession()) {
+			RecipeMapper mapper = session.getMapper(RecipeMapper.class);
+
+			recipeViews = mapper.getRecipeViews();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return recipeViews;
+	}
+	
 }

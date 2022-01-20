@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hustar.recipe.mapper.MyRefrigeratorMapper">
+
+	<resultMap type="com.hustar.recipe.vo.MyRefrigeratorVO"
+		id="myRefrigeratorMap">
+		<id property="detail_id" column="detail_id"></id>
+		<result property="prod_name" column="prod_name" />
+		<result property="prod_img" column="prod_img" />
+		<result property="prod_unit" column="prod_unit" />
+		<result property="prod_post" column="prod_post" />
+		<result property="prod_exp" column="prod_exp" />
+		<result property="uid" column="uid" />
+	</resultMap>
+
+
+	<select id="getMyRefrigerator" resultMap="myRefrigeratorMap">
+		SELECT * FROM
+		user_detail
+		WHERE uid = #{uid}
+		ORDER BY prod_exp ASC, prod_post ASC;
+	</select>
+
+	<select id="infoIngre" resultMap="myRefrigeratorMap">
+		SELECT * FROM user_detail
+		WHERE detail_id = #{detail_id}
+	</select>
+
+	<insert id="registMyRefrigerator">
+		INSERT INTO user_detail
+		(uid, prod_name, prod_post,
+		prod_exp)
+		VALUES (#{uid}, #{prod_name}, #{prod_post}, #{prod_exp})
+	</insert>
+
+	<delete id="deleteMyRefrigerator">
+		DELETE FROM user_detail
+		WHERE detail_id =
+		#{detail_id}
+	</delete>
+
+
+
+
+
+</mapper>
