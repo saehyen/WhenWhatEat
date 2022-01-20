@@ -4,16 +4,16 @@
     class="mx-auto"
   >
     <v-img
-      :src= 'ingredients.prod_img'
-      max-height="200px"
+      :src= 'ingredients[0].prod_img'
+      :height="heights"
     ></v-img>
 
     <v-card-title>
-      {{ingredients.prod_name}}
+      {{ingredients[0].prod_name}}
     </v-card-title>
 
     <v-card-subtitle>
-      유통기한 : {{ingredients.prod_exp}} 까지
+      유통기한 : {{ingredients[0].prod_exp}} 까지
     </v-card-subtitle>
 
     <v-card-actions>
@@ -63,24 +63,43 @@ export default {
           Recipe_id : this.$route.params.id, 
           show: false,
           ingredients:[],
+          height:0
+        
         }
+        
+    },
+    computed:{
+      heights () {
+        switch (this.$vuetify.breakpoint.name) {
+          case 'xs': return 160
+          case 'sm' : return 350
+          case 'md': return 400
+          case 'lg': return 400
+          case 'xl': return 600
+        }}
     },
     methods :{
       useIngredient(){
+        axios.get('http://10.1.4.112:9999/myrefrigerator/deleteMyRefrigerator?detail_id='+ this.ingredients.detail_id)
+        .then(res =>{ 
+          console.log(res)
+        })
+        .catch(error => 
+            console.log(error))
+      
         this.$router.push('/Myrefrigerator');
         console.log("home");
       },
       getIndredient(){
         console.log("start");
-        axios.get('http://10.1.4.112:9999/myrefrigerator/myrefrigerator?uid=2')
+        axios.get('http://10.1.4.112:9999/myrefrigerator/infoIngre?detail_id='+this.Recipe_id)
         .then(res =>{ 
-          this.ingredients=res.data.result[this.Recipe_id];
-          console.log(this.ingredients)
+          this.ingredients = res.data.result;
         })
         .catch(error => 
             console.log(error))
         },
-
+      
     },
     created(){
       this.getIndredient();

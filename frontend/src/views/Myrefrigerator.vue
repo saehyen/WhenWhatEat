@@ -25,7 +25,7 @@
               :src="card.img"
               class="white--text align-end"
               gradient="to bottom, rgba(0,0,0,.1), rgba(0,0,0,.5)"
-              height="125px"
+              :height= "height"
             >
              <!-- <v-card-subtitle >{{ new Date().getYear()+1900 }}년{{ new Date().getMonth()+1 }}월{{ new Date().getDate() }}일까지 </v-card-subtitle> -->
             </v-img>
@@ -33,7 +33,6 @@
               <v-row class="ma-1">
                 <v-col cols="5">
                   <v-rating
-                    v-model="rating"
                     background-color="orange"
                     color="orange darken-3"
                     readonly
@@ -151,7 +150,7 @@ export default {
     gradient:"",
     rating:4,
     recipeList:[],
-    user_name : "백동채",
+    user_name : "마서현",
     selingredient : '',
     dialog2: false,
     notifications: false,
@@ -184,6 +183,7 @@ export default {
       { text: '다진생강' },
       { text: '달걀' },
       { text: '달걀노른자' },
+      { text: '닭가슴살' },
       { text: '닭볶음탕용닭' },
       { text: '당근' },
       { text: '대파' },
@@ -285,22 +285,45 @@ export default {
     }
     
   },
-
+  computed:{
+      height () {
+        switch (this.$vuetify.breakpoint.name) {
+          case 'xs': return 160
+          case 'sm' : return 300
+          case 'md': return 300
+          case 'lg': return 300
+          case 'xl': return 300
+        }}
+    },
+  
   methods:{
     // 재료 추가
     addingredient(){
+      const params={
+        'uid' : 2,
+        'prod_name' : this.selingredient.text,
+        'prod_exp' : this.picker
+      }
       console.log(this.selingredient.text);
       console.log(this.picker);
-      this.cards.append(cards.length()+1,this.selingredient.text,"",this.picker);
       this.dialog2= false;
+      axios.post('http://10.1.4.112:9999/myrefrigerator/registMyRefrigerator',params)
+        .then((response) => {
+          console.log(response);
+          this.getIndredient();
+        })
+        .catch(function(error) {
+          console.log(error);
+        });
+      // this.cards.append(cards.length()+1,this.selingredient.text,"",this.picker);
     },
     // 재료 상세 페이지 이동
     godetailIn(id){
       this.$router.push('/Ingredient/'+id);
       },
-    // 레시피 목록 가져오기
+    // 추천 레시피 목록 가져오기
     getRecipeList() {
-      axios.post('http://10.1.4.112:9999/recipe/recipe.do')
+      axios.post('http://10.1.4.112:9999/recipe/recommendRecipe?uid='+2)
         .then((response) => {
           if (response.data.success) {
             this.recipeList = response.data.result;
@@ -312,12 +335,9 @@ export default {
     },
     // 재료 목록 가져오기
     getIndredient(){
-        console.log("start");
         axios.get('http://10.1.4.112:9999/myrefrigerator/myrefrigerator?uid=2')
         .then(res =>{ 
-          console.log(res.data);
           this.ingredients=res.data.result;
-          console.log(this.ingredients)
         })
         .catch(error => 
             console.log(error))

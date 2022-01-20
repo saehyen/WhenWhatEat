@@ -14,7 +14,7 @@
     </template>
 
     <v-img style="object-fit:cover"
-      max-height="250"
+      max-height="height+100"
       :src = recipe[0].img
     ></v-img>
 
@@ -61,7 +61,7 @@
               :src= list.detail_img
               class="white--text align-end"
               gradient="to bottom, rgba(0,0,0,.1), rgba(0,0,0,.5)"
-              height="200px"
+              height="height"
             >
              <!-- <v-card-subtitle >{{ new Date().getYear()+1900 }}년{{ new Date().getMonth()+1 }}월{{ new Date().getDate() }}일까지 </v-card-subtitle> -->
             </v-img>
@@ -150,6 +150,14 @@ export default {
         .catch(error => 
             console.log(error))
         },
+        height () {
+        switch (this.$vuetify.breakpoint.name) {
+          case 'xs': return 160
+          case 'sm' : return 160
+          case 'md': return 210
+          case 'lg': return 215
+          case 'xl': return 400
+        }},
       },
     
     created() {

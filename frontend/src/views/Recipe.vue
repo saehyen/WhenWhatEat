@@ -59,6 +59,7 @@
         >
           <v-btn position:absolute right >최신순</v-btn>
           <v-btn right> 추천순</v-btn>
+           <v-btn right> 조회순</v-btn>
         </v-btn-toggle>
       </v-col>
   </v-row>
@@ -116,7 +117,7 @@
         </v-col>
       </v-row>
       <div class="text-center">
-        <v-pagination class="ma-8"
+        <v-pagination class="ma-4"
           v-model="page"
           :length= Math.ceil(lengths/9)
           @input="handlePageChange"
@@ -197,7 +198,7 @@ export default {
     },
       // ----------------------->RecipeController에서 데이터 가져옴.
     getRecipeList() {
-      axios.post('http://10.1.4.112:9999/recipe/recipe.do')
+      axios.post('http://10.1.4.112:9999/recipe/recipe')
         .then((response) => {
           if (response.data.success) {
             console.log(response.data.result);
@@ -212,6 +213,51 @@ export default {
     },
     SortPick(){
       console.log("clicked! : "+ this.toggle_exclusive);
+      // 최신순
+      if (this.toggle_exclusive==0) {
+        axios.post('http://10.1.4.112:9999/recipe/recipe')
+        .then((response) => {
+          if (response.data.success) {
+            console.log(response.data.result);
+            console.log(response.data.result.length);
+            this.lengths = response.data.result.length;
+            this.recipeList = response.data.result;
+          }
+        })
+        .catch(function(error) {
+          console.log(error);
+        });
+      }
+      // 추천순
+      else if(this.toggle_exclusive==1){
+        axios.post('http://10.1.4.112:9999/recipe/recipeRate ')
+        .then((response) => {
+          if (response.data.success) {
+            console.log(response.data.result);
+            console.log(response.data.result.length);
+            this.lengths = response.data.result.length;
+            this.recipeList = response.data.result;
+          }
+        })
+        .catch(function(error) {
+          console.log(error);
+        });
+      }
+      // 조회순
+      else if(this.toggle_exclusive==2){
+        axios.post('http://10.1.4.112:9999/recipe/recipeViews')
+        .then((response) => {
+          if (response.data.success) {
+            console.log(response.data.result);
+            console.log(response.data.result.length);
+            this.lengths = response.data.result.length;
+            this.recipeList = response.data.result;
+          }
+        })
+        .catch(function(error) {
+          console.log(error);
+        });
+      }
     },
     handlePageChange(value) {
       this.currentPage = value;
