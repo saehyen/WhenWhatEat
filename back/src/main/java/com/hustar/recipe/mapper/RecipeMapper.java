@@ -21,5 +21,9 @@ public interface RecipeMapper {
 	public List<RecipeVO> getTopRecipe();
 	
 	public List<RecipeVO> getRecommendRecipe(Long uid);
+	
+	public List<RecipeVO> getRecipeRate();
+	
+	public List<RecipeVO> getRecipeViews();
 
 }

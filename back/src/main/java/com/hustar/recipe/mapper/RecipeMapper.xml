@@ -28,6 +28,7 @@
 
 	<select id="getRecipeList" resultMap="recipeMap">
 		SELECT * FROM recipe
+		ORDER BY post_date DESC
 	</select>
 
 	<select id="getRecipeDetailList" resultMap="recipeMap">
@@ -50,14 +51,34 @@
 
 	<select id="getRecommendRecipe" resultMap="recipeMap">
 		SELECT DISTINCT
-		user_detail.prod_exp, user_detail.prod_name, recipe.name, recipe.id, recipe.rate, recipe.views, recipe.rate_count, recipe.img
-		FROM user_detail LEFT JOIN ingredient
-		ON user_detail.prod_name = ingredient.ingre_name
+		user_detail.prod_exp, user_detail.prod_name, recipe.name, recipe.id,
+		recipe.rate, recipe.views, recipe.rate_count, recipe.img
+		FROM
+		user_detail LEFT JOIN ingredient
+		ON user_detail.prod_name =
+		ingredient.ingre_name
 		JOIN recipe
 		ON ingredient.ingre_id = recipe.id
 		WHERE user_detail.uid= #{uid}
 		GROUP BY recipe.id
-		ORDER BY user_detail.prod_exp
+		ORDER BY
+		user_detail.prod_exp
 	</select>
 
+
+	<select id="detailIngre" resultMap="recipeDetailMap">
+		SELECT * FROM
+		recipe_detail WHERE detail_id = #{detail_id}
+	</select>
+
+	<select id="getRecipeRate" resultMap="recipeMap">
+		SELECT * FROM recipe
+		ORDER BY rate DESC
+	</select>
+	
+	<select id="getRecipeViews" resultMap="recipeMap">
+		SELECT * FROM recipe
+		ORDER BY views DESC
+	</select>
+	
 </mapper>

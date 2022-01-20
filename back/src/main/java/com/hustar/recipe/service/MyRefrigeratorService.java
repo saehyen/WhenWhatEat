@@ -70,7 +70,7 @@ public class MyRefrigeratorService implements MyRefrigeratorServiceIF {
 	
 	
 	@Override
-	public Boolean deleteMyRefrigerator(MyRefrigeratorVO vo) {
+	public Boolean deleteMyRefrigerator(Long detail_id) {
 		
 		boolean result = false;
 		
@@ -81,7 +81,7 @@ public class MyRefrigeratorService implements MyRefrigeratorServiceIF {
 			int mapperResult = 0;
 			
 			// 성공시 1이 반환됩니다.
-			mapperResult = mapper.deleteMyRefrigerator(vo);
+			mapperResult = mapper.deleteMyRefrigerator(detail_id);
 			
 			//정상 동작시 return 값을 true
 			if (mapperResult > 0) {
@@ -97,6 +97,23 @@ public class MyRefrigeratorService implements MyRefrigeratorServiceIF {
 		}
 	
 		return result;
+	}
+	
+	@Override
+	public List<MyRefrigeratorVO> infoIngre(Long detail_id) {
+		
+		List<MyRefrigeratorVO> infoIngre = new ArrayList<MyRefrigeratorVO>();
+		
+		try (SqlSession session = sqlSessionFactory.openSession()) {
+			MyRefrigeratorMapper mapper = session.getMapper(MyRefrigeratorMapper.class);
+
+			infoIngre = mapper.infoIngre(detail_id);
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return infoIngre;
 	}
 	
 	

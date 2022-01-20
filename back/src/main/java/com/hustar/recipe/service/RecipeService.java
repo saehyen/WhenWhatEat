@@ -99,5 +99,36 @@ public class RecipeService implements RecipeServiceIF {
 		}
 		return recipeList;
 	}
+
+	
+	@Override
+	public List<RecipeVO> getRecipeRate() {
+
+		List<RecipeVO> recipeRate = new ArrayList<RecipeVO>();
+
+		try (SqlSession session = sqlSessionFactory.openSession()) {
+			RecipeMapper mapper = session.getMapper(RecipeMapper.class);
+
+			recipeRate = mapper.getRecipeRate();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return recipeRate;
+	}
+	
+	@Override
+	public List<RecipeVO> getRecipeViews() {
+
+		List<RecipeVO> recipeViews = new ArrayList<RecipeVO>();
+
+		try (SqlSession session = sqlSessionFactory.openSession()) {
+			RecipeMapper mapper = session.getMapper(RecipeMapper.class);
+
+			recipeViews = mapper.getRecipeViews();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return recipeViews;
+	}
 	
 }

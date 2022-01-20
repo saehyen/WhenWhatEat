@@ -13,6 +13,8 @@ public interface MyRefrigeratorMapper {
 	
 	public Integer registMyRefrigerator(MyRefrigeratorVO vo);
 
-	public int deleteMyRefrigerator(MyRefrigeratorVO vo);
+	public int deleteMyRefrigerator(Long detail_id);
+	
+	public List<MyRefrigeratorVO> infoIngre(Long detail_id);
 
 }

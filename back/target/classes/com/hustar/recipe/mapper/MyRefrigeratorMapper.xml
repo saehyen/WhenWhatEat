@@ -16,12 +16,20 @@
 
 	<select id="getMyRefrigerator" resultMap="myRefrigeratorMap">
 		SELECT * FROM
-		user_detail WHERE uid = #{uid}
+		user_detail
+		WHERE uid = #{uid}
+		ORDER BY prod_exp ASC, prod_post ASC;
+	</select>
+
+	<select id="infoIngre" resultMap="myRefrigeratorMap">
+		SELECT * FROM user_detail
+		WHERE detail_id = #{detail_id}
 	</select>
 
 	<insert id="registMyRefrigerator">
 		INSERT INTO user_detail
-		(uid, prod_name, prod_post, prod_exp)
+		(uid, prod_name, prod_post,
+		prod_exp)
 		VALUES (#{uid}, #{prod_name}, #{prod_post}, #{prod_exp})
 	</insert>
 
@@ -30,6 +38,9 @@
 		WHERE detail_id =
 		#{detail_id}
 	</delete>
+
+
+
 
 
 </mapper>

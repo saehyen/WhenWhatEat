@@ -26,7 +26,7 @@ public class RecipeController {
 
 	@CrossOrigin(origins = "*")
 	@ResponseBody
-	@RequestMapping(value = "recipe", method = RequestMethod.POST)
+	@RequestMapping(value = "recipe", method = {RequestMethod.POST , RequestMethod.GET})
 	public ResultVO getRecipeList() {
 
 		System.out.println("result recipe");
@@ -106,6 +106,34 @@ public class RecipeController {
 		System.out.println(result);
 		return result;
 	}
+	
+	@CrossOrigin(origins = "*")
+	@ResponseBody
+	@RequestMapping(value = "recipeRate", method = {RequestMethod.POST , RequestMethod.GET})
+	public ResultVO getRecipeRecommend() {
+
+		System.out.println("result recipeRate");
+		ResultVO result = new ResultVO(false, null);
+
+			result.setResult(recipeService.getRecipeRate());
+			result.setSuccess(true);
+		return result;
+	}
+	
+	@CrossOrigin(origins = "*")
+	@ResponseBody
+	@RequestMapping(value = "recipeViews", method = {RequestMethod.POST , RequestMethod.GET})
+	public ResultVO getRecipeListViews() {
+
+		System.out.println("result recipeViews");
+		ResultVO result = new ResultVO(false, null);
+
+			result.setResult(recipeService.getRecipeViews());
+			result.setSuccess(true);
+		return result;
+	}
+	
+	
 	
 	
 }

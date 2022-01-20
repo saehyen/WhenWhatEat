@@ -38,6 +38,21 @@ public class MyRefrigeratorController {
 	
 	@CrossOrigin(origins = "*")
 	@ResponseBody
+	@RequestMapping(value = "infoIngre", method = { RequestMethod.POST, RequestMethod.GET })
+	public ResultVO detailIngre(@RequestParam(value="detail_id") Long detail_id) {
+
+		System.out.println("result detail");
+		ResultVO result = new ResultVO(false, null);
+
+		result.setResult(myRefrigeratorService.infoIngre(detail_id));
+		result.setSuccess(true);
+		System.out.println(result);
+
+		return result;
+	}
+	
+	@CrossOrigin(origins = "*")
+	@ResponseBody
 	@RequestMapping(value = "registMyRefrigerator", method = { RequestMethod.POST, RequestMethod.GET })
 	public ResultVO registMyRefrigerator(@RequestBody MyRefrigeratorVO vo) {
 
@@ -54,15 +69,14 @@ public class MyRefrigeratorController {
 	@CrossOrigin(origins = "*")
 	@ResponseBody
 	@RequestMapping(value = "deleteMyRefrigerator", method = { RequestMethod.POST, RequestMethod.GET })
-	public ResultVO deleteMyRefrigerator(@RequestBody MyRefrigeratorVO vo) {
-
-		System.out.println("result myrefrigerator");
+	public ResultVO deleteMyRefrigerator(@RequestParam(value = "detail_id") Long detail_id) {
+		System.out.println(detail_id);
+		System.out.println("result delete");
 		ResultVO result = new ResultVO(false, null);
 
-		System.out.println("result delete");
-		result.setResult(myRefrigeratorService.deleteMyRefrigerator(vo));
+		result.setResult(myRefrigeratorService.deleteMyRefrigerator(detail_id));
 		result.setSuccess(true);
-		System.out.println(result);
+		System.out.println(detail_id);
 
 		return result;
 	}

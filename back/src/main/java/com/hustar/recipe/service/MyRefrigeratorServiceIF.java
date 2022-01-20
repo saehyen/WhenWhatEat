@@ -10,6 +10,8 @@ public interface MyRefrigeratorServiceIF {
 	
 	public Boolean registMyRefrigerator(MyRefrigeratorVO vo);
 
-	public Boolean deleteMyRefrigerator(MyRefrigeratorVO vo);
+	public Boolean deleteMyRefrigerator(Long detail_id);
+	
+	public List<MyRefrigeratorVO> infoIngre(Long detail_id);
 
 }
