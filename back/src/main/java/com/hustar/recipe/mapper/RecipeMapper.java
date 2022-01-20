@@ -25,5 +25,7 @@ public interface RecipeMapper {
 	public List<RecipeVO> getRecipeRate();
 	
 	public List<RecipeVO> getRecipeViews();
+	
+	public List<RecipeVO> updateViews(Long id);
 
 }

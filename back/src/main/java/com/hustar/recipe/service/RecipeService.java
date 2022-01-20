@@ -20,8 +20,6 @@ public class RecipeService implements RecipeServiceIF {
 	private SqlSessionFactory sqlSessionFactory;
 
 
-
-
 	@Override
 	public List<RecipeVO> getRecipeList() {
 
@@ -45,11 +43,16 @@ public class RecipeService implements RecipeServiceIF {
 			RecipeMapper mapper = session.getMapper(RecipeMapper.class);
  
 			recipe = mapper.getRecipeDetailList(id);
+			mapper.updateViews(id);
  
 		} catch (Exception e) {
 			// TODO: handle exception
 			e.printStackTrace();
 		}
+		
+		
+		
+		
 		return recipe;
 	}
 	

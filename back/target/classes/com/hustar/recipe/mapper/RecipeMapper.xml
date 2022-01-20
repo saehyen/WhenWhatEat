@@ -75,10 +75,15 @@
 		SELECT * FROM recipe
 		ORDER BY rate DESC
 	</select>
-	
+
 	<select id="getRecipeViews" resultMap="recipeMap">
 		SELECT * FROM recipe
 		ORDER BY views DESC
+	</select>
+	
+	<select id="updateViews" resultMap="recipeMap">
+		UPDATE recipe SET views = views + 1 
+		WHERE id = #{id}
 	</select>
 	
 </mapper>
