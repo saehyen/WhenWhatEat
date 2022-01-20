@@ -164,6 +164,26 @@
         },
       },
     methods: {
+      getItem(){
+      const page = 0;
+
+        axios.get("http://ec2-13-124-134-65.ap-northeast-2.compute.amazonaws.com:8080/api/noticelist")
+        .then((response) => {
+            this.data = response.data;  
+            console.log(this.data)
+          
+          for(var pageNo = 0; pageNo < this.data.totalPages; pageNo++){ 
+              pageBtn += "<li>";
+              pageBtn += "<button id=\"btn_write\" class=\"btn_write btn btn-primary btn-floating\" v-on:click=\"page("+ (pageNo+1) +")\">" +(pageNo+1)+"</button>";
+              pageBtn += "</li>";
+
+          }
+          console.log(pageBtn)
+          $("ul#pages").append(pageBtn)
+        
+ 
+        })
+      },
       // 탑6 레시피 받아오기
       getRecipeList() {
       axios.post('http://10.1.4.112:9999/recipe/topRecipe')
