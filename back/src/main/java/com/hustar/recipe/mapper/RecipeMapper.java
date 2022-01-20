@@ -14,8 +14,12 @@ public interface RecipeMapper {
 	
 	public List<RecipeVO> getRecipeList();
 	
-	public RecipeVO getRecipeDetailList(Long id);
+	public List<RecipeVO> getRecipeDetailList(Long id);
 	
-	public List<RecipeDetailVO> getRecipeDetail(Long id);
+	public List<RecipeDetailVO> getRecipeDetail(Long detail_id);
+	
+	public List<RecipeVO> getTopRecipe();
+	
+	public List<RecipeVO> getRecommendRecipe(Long uid);
 
 }

@@ -2,38 +2,62 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.hustar.recipe.mapper.RecipeMapper">
 
-	<resultMap type="com.hustar.recipe.vo.RecipeVO" id="recipeMap">
+	<resultMap type="com.hustar.recipe.vo.RecipeVO"
+		id="recipeMap">
 		<id property="id" column="id"></id>
-		<result property="name" column="name"/>
-		<result property="img" column="img"/>
-		<result property="summary" column="summary"/>
-		<result property="info1" column="info1"/>
-		<result property="info2" column="info2"/>
-		<result property="info3" column="info3"/>
-		<result property="ingre" column="ingre"/>
-		<result property="rate" column="rate"/>
-		<result property="rate_count" column="rate_count"/>
-		<result property="views" column="views"/>
-		<result property="post_date" column="post_date"/>
-		</resultMap>
-		
-			<resultMap type="com.hustar.recipe.vo.RecipeDetailVO" id="recipeDetailMap">
+		<result property="name" column="name" />
+		<result property="img" column="img" />
+		<result property="summary" column="summary" />
+		<result property="info1" column="info1" />
+		<result property="info2" column="info2" />
+		<result property="info3" column="info3" />
+		<result property="ingre" column="ingre" />
+		<result property="rate" column="rate" />
+		<result property="rate_count" column="rate_count" />
+		<result property="views" column="views" />
+		<result property="post_date" column="post_date" />
+	</resultMap>
+
+	<resultMap type="com.hustar.recipe.vo.RecipeDetailVO"
+		id="recipeDetailMap">
 		<id property="detail_idx" column="detail_idx"></id>
 		<id property="detail_id" column="detail_id"></id>
 		<id property="detail_txt" column="detail_txt"></id>
 		<id property="detail_img" column="detail_img"></id>
-		</resultMap>
-		
-		<select id="getRecipeList" resultMap="recipeMap">
-				SELECT * FROM recipe
-		</select>
-		
-	<select id="getRecipeDetailList" resultMap="recipeMap">
-		SELECT * FROM recipe WHERE id = #{id}
+	</resultMap>
+
+	<select id="getRecipeList" resultMap="recipeMap">
+		SELECT * FROM recipe
 	</select>
-	
+
+	<select id="getRecipeDetailList" resultMap="recipeMap">
+		SELECT * FROM recipe
+		WHERE id = #{id}
+	</select>
+
 	<select id="getRecipeDetail" resultMap="recipeDetailMap">
-		SELECT * FROM recipe_detail WHERE detail_id = #{id}
+		SELECT * FROM
+		recipe_detail WHERE detail_id = #{detail_id}
+	</select>
+
+	<select id="getTopRecipe" resultMap="recipeMap">
+		SELECT * FROM recipe
+		WHERE
+		post_date >= DATE_ADD(NOW(), INTERVAL -1 DAY)
+		ORDER BY views DESC, rate
+		DESC LIMIT 6;
+	</select>
+
+	<select id="getRecommendRecipe" resultMap="recipeMap">
+		SELECT DISTINCT
+		user_detail.prod_exp, user_detail.prod_name, recipe.name, recipe.id, recipe.rate, recipe.views, recipe.rate_count, recipe.img
+		FROM user_detail LEFT JOIN ingredient
+		ON user_detail.prod_name = ingredient.ingre_name
+		JOIN recipe
+		ON ingredient.ingre_id = recipe.id
+		WHERE user_detail.uid= #{uid}
+		GROUP BY recipe.id
+		ORDER BY user_detail.prod_exp
 	</select>
 
 </mapper>
