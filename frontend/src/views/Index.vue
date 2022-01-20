@@ -218,6 +218,7 @@
     },
     created() {
       this.getRecipeList();
+      this. getItem();
     }
 }
 </script>
