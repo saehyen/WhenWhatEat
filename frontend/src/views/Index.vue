@@ -7,7 +7,7 @@
           :key="card.title"
           :cols="card.flex"
         >
-          <v-card>
+          <v-card >
             <v-img
               :src="card.src"
               class="white--text align-end"
@@ -32,7 +32,7 @@
             class="mx-auto"
             elevation="5"
             width="100%"
-            height="260"
+            height="auto"
           >
             <v-slide-group
             cycle
@@ -44,33 +44,45 @@
                 v-for="n in 6"
                 :key="n"
                 v-slot="{ active, toggle }"
-              >              
-                <v-card
-                  :color="active ? 'primary' : 'grey lighten-1'"
-                  class="ma-4"
-                  height="200"
-                  :width="widths"
-                  @click="toggle"
+              >       
+                  
+              <v-card
+                :color="active ? 'none' : 'none lighten-1'"
+                class="ma-4"
+                height="200"
+                :width="widths"
+                @click="toggle"
+              >
+              <v-img v-if="!active"
+                      :src="topRecipe[n-1].img"
+                      class="white--text align-end"
+                      gradient="to bottom, rgba(0,0,0,.1), rgba(0,0,0,.5)"
+                      height="85%"
+              ></v-img>
+              <h4 v-if="!active" color="white" class="pa-1 text-center justify-center" style="text-overflow: ellipsis; white-space:nowrap; overflow:hidden;">
+                    {{topRecipe[n-1].name}}
+                  </h4>
+                <v-row
+                  class="fill-height"
+                  align="center"
+                  justify="center"
                 >
-                  <v-row
-                    class="fill-height"
-                    align="center"
-                    justify="center"
-                  >
-                    <v-scale-transition>
-                      <h3 v-if="active" color="white">
-                        {{n}}번 요리 재료들
-                      </h3>
-                       <h3 v-if-else="active" color="white">
-                        요리{{n}}
-                      </h3>
-                    </v-scale-transition>
-                    
-                  </v-row>
-                  <p class="font-weight-black text-center" >음식이름{{n}}</p>
-                </v-card>
-              </v-slide-item>
-           
+                  <v-scale-transition>
+                    <h5 v-if="active" color="white" class="text-center justify-center">
+                      {{topRecipe[n-1].name}}
+                    </h5>
+                      
+                  </v-scale-transition>
+                  
+                </v-row>
+                 <h5 v-if="!active" color="white">
+                    {{topRecipe[n-1].name}}
+                  </h5>
+                  
+              </v-card>
+              
+            </v-slide-item>
+          
             </v-slide-group>
             
         </v-sheet>
@@ -105,18 +117,20 @@
 </template>
 
 <script>
+  import axios from 'axios'
   export default {
   name: 'Index',
   components:{
   },
   data: () => ({
+      topRecipe:[],
       length: 3,
       onboarding: 0,
       width : '100%',
-      height : '210',
+      height : '300',
       videoId: ['kR77WlHRZrs','dQnjf9ouGgk','uYapP-gOAVU'],
       video_name:['한식','양식','디저트'],
-      video_subname:['달걀볶음밥','각국 면요리','뱅쇼'],
+      video_subname:['달걀볶음밥','뱅쇼','각국 면요리'],
       cards: [
       { title: '냉장고는 가볍게 입 안을 즐겁게', src: 'https://cdn.pixabay.com/photo/2015/09/21/14/23/supermarket-949912_1280.jpg', flex: 12 }
     ],
@@ -124,11 +138,11 @@
     computed: {
       widths () {
         switch (this.$vuetify.breakpoint.name) {
-          case 'xs': return 150
+          case 'xs': return 160
           case 'sm' : return 160
           case 'md': return 210
           case 'lg': return 215
-          case 'xl': return 370
+          case 'xl': return 400
         }},
         playerVars() {
           return {
@@ -144,11 +158,27 @@
             //muted: 1,
             //loop: 1,
             start: this.start,
-            end: this.end
+            end: this.end,
+            
           };
         },
       },
     methods: {
+      // 탑6 레시피 받아오기
+      getRecipeList() {
+      axios.post('http://10.1.4.112:9999/recipe/topRecipe')
+        .then((response) => {
+          if (response.data.success) {
+            this.topRecipe = response.data.result
+          }
+        })
+        .catch(function(error) {
+          console.log(error);
+        });
+    },
+     godetail(id){
+      this.$router.push('/Recipedetail/'+id);
+    },
       ready(){},
       playing(){
         this.$refs.youtube.player.playVideo()
@@ -166,6 +196,9 @@
           : this.onboarding - 1
       },
     },
+    created() {
+      this.getRecipeList();
+    }
 }
 </script>
 
