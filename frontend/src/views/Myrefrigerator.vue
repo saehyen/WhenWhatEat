@@ -116,7 +116,7 @@
      
      <v-row dense>
         <v-col 
-          v-for="card in cards"
+          v-for="card in ingredients"
           :key="card.num"
           :md="2"
           :sm="4"
@@ -126,13 +126,13 @@
           @click="godetailIn(card.detail_id)"
           >
             <v-img 
-              :src="card.src"
+              :src="card.prod_img"
               class="white--text align-end"
               gradient="to bottom, rgba(0,0,0,.1), rgba(0,0,0,.5)"
               height="125px"
             >
-              <v-card-title v-text="card.title"></v-card-title>
-              <v-card-subtitle >{{ card.expiration_date }}까지 </v-card-subtitle>
+              <v-card-title v-text="card.prod_name"></v-card-title>
+              <v-card-subtitle >{{ card.prod_exp.slice(0,10) }}까지 </v-card-subtitle>
              <!-- <v-card-subtitle >{{ new Date().getYear()+1900 }}년{{ new Date().getMonth()+1 }}월{{ new Date().getDate() }}일까지 </v-card-subtitle> -->
             </v-img>
           </v-card>
@@ -148,21 +148,7 @@ export default {
   name: 'Myrefrigerator',
   data(){
     return{
-      gradient:"",
-      cards: [
-    { detail_id:1,title: '가쓰오부시', src: 'https://cdn.pixabay.com/photo/2015/09/30/10/03/of-965193__480.jpg', expiration_date:"2022-01-25"},
-    { detail_id:2,title: '간장', src: 'https://cdn.pixabay.com/photo/2019/11/25/15/22/soy-sauce-4652303__480.jpg', expiration_date:"2022-01-28" },
-    { detail_id:3,title: '강력분', src: 'https://cdn.pixabay.com/photo/2016/08/09/22/23/flour-1581967__480.jpg', expiration_date:"2022-01-29"  },
-    { detail_id:4,title: '견과류' , src: 'https://cdn.pixabay.com/photo/2017/05/14/16/52/walnuts-2312506__340.jpg', expiration_date:"2022-01-25"  },
-    { detail_id:5,title: '계란' , src: 'https://cdn.pixabay.com/photo/2016/07/11/19/40/eggs-1510449__480.jpg', expiration_date:"2022-01-25" },
-    { detail_id:6,title: '고다치즈' , src: 'https://cdn.pixabay.com/photo/2017/01/11/19/56/cheese-1972744__480.jpg', expiration_date:"2022-01-25" },
-    { detail_id:7,title: '고추기름', src: 'https://cdn.pixabay.com/photo/2016/08/15/20/29/olive-oil-1596417__340.jpg', expiration_date:"2022-01-25" },
-    { detail_id:8,title: '고춧가루', src: 'https://cdn.pixabay.com/photo/2017/05/23/03/19/red-pepper-2336042__340.jpg', expiration_date:"2022-01-25" },
-    { detail_id:9,title: '과일치즈', src: 'https://cdn.pixabay.com/photo/2020/05/03/13/23/cheese-5125021__340.jpg', expiration_date:"2022-01-25" },
-    { detail_id:10,title: '광어회', src: 'https://cdn.pixabay.com/photo/2017/02/14/01/39/flounder-times-2064403__340.jpg', expiration_date:"2022-01-25" },
-    { detail_id:11,title: '국간장', src: 'https://cdn.pixabay.com/photo/2016/03/31/18/17/asian-1294266__340.png', expiration_date:"2022-01-25" },
-    { detail_id:12,title: '굴소스', src: 'https://cdn.pixabay.com/photo/2014/12/22/00/04/bottle-576717__480.png', expiration_date:"2022-01-25"}
-    ],
+    gradient:"",
     rating:4,
     recipeList:[],
     user_name : "백동채",
@@ -172,7 +158,7 @@ export default {
     sound: true,
     widgets: false,
     picker: (new Date(Date.now() - (new Date()).getTimezoneOffset() * 60000)).toISOString().substr(0, 10),
-   
+    ingredients:[],
     select: [
       { text: '가쓰오부시' },
       { text: '간장' },
@@ -301,20 +287,22 @@ export default {
   },
 
   methods:{
+    // 재료 추가
     addingredient(){
       console.log(this.selingredient.text);
       console.log(this.picker);
       this.cards.append(cards.length()+1,this.selingredient.text,"",this.picker);
       this.dialog2= false;
     },
+    // 재료 상세 페이지 이동
     godetailIn(id){
       this.$router.push('/Ingredient/'+id);
       },
+    // 레시피 목록 가져오기
     getRecipeList() {
-      axios.post('http://10.1.4.112:9999/recipe/get-recipe-list.do')
+      axios.post('http://10.1.4.112:9999/recipe/recipe.do')
         .then((response) => {
           if (response.data.success) {
-            console.log(response.data.result);
             this.recipeList = response.data.result;
           }
         })
@@ -322,6 +310,19 @@ export default {
           console.log(error);
         });
     },
+    // 재료 목록 가져오기
+    getIndredient(){
+        console.log("start");
+        axios.get('http://10.1.4.112:9999/myrefrigerator/myrefrigerator?uid=2')
+        .then(res =>{ 
+          console.log(res.data);
+          this.ingredients=res.data.result;
+          console.log(this.ingredients)
+        })
+        .catch(error => 
+            console.log(error))
+        },
+    // 레시피 상세페이지 이동
     godetail(id){
       this.$router.push('/Recipedetail/'+id);
     },
@@ -329,6 +330,7 @@ export default {
   
   created() {
     this.getRecipeList();
+    this.getIndredient();
   },
 }
  

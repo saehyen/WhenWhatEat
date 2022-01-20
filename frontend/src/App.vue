@@ -11,6 +11,10 @@
     
     <v-app-bar-nav-icon @click="drawer = !drawer"></v-app-bar-nav-icon>
     <v-spacer/>
+    <router-link class="text-h5" style="text-decoration:none; margin : -40px 0" to="/">
+            <img src="./assets/logo.png" width="200px" height="100%">
+    </router-link>
+    <v-spacer/>
        <v-btn  to="/Login">
         <v-icon
           size = "35">
