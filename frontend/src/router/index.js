@@ -91,6 +91,14 @@ const routes = [
 			title: "회원가입",
 		  },
 	},
+	{
+		path:'/Board'
+		,name:'Board'
+		, component: ()=> import('../views/board.vue')
+		, meta: {
+			title: "테스트2",
+		  },
+	},
 	
 ]
   
