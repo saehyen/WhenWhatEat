@@ -91,6 +91,7 @@ export default {
           { title: '레시피', icon: 'mdi-food', to:'/Recipe' },
           { title: '관리자', icon: 'mdi-wrench', to:'/Admin' },
           { title: '테스트', icon: 'mdi-wrench', to:'/Test' },
+          { title: '테스트2', icon: 'mdi-wrench', to:'/Board' },
         ],
         right: null,
   }),
