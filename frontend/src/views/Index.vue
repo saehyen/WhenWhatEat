@@ -144,29 +144,28 @@
           case 'lg': return 215
           case 'xl': return 400
         }},
-        playerVars() {
-          return {
-            //controls: 0,
-            player3: Object,
-            rel: 0,
-            autoplay: 0,
-            enablejsapi: 1,
-            fs: 0,
-            playsinline: 1,
-            ivLoadPolicy2: 1,
-            //playlist: this.videoId,
-            //muted: 1,
-            //loop: 1,
-            start: this.start,
-            end: this.end,
-            
-          };
-        },
+      playerVars() {
+        return {
+          //controls: 0,
+          player3: Object,
+          rel: 0,
+          autoplay: 0,
+          enablejsapi: 1,
+          fs: 0,
+          playsinline: 1,
+          ivLoadPolicy2: 1,
+          //playlist: this.videoId,
+          //muted: 1,
+          //loop: 1,
+          start: this.start,
+          end: this.end,
+          
+        };
       },
+    },
     methods: {
       getItem(){
       const page = 0;
-
         axios.get("http://ec2-13-124-134-65.ap-northeast-2.compute.amazonaws.com:8080/api/noticelist")
         .then((response) => {
             this.data = response.data;  
@@ -185,7 +184,7 @@
         })
       },
       // 탑6 레시피 받아오기
-      getRecipeList() {
+    getRecipeList() {
       axios.post('http://10.1.4.112:9999/recipe/topRecipe')
         .then((response) => {
           if (response.data.success) {
@@ -196,25 +195,25 @@
           console.log(error);
         });
     },
-     godetail(id){
+    godetail(id){
       this.$router.push('/Recipedetail/'+id);
     },
-      ready(){},
-      playing(){
-        this.$refs.youtube.player.playVideo()
-      },
-      ended(){},
-      error(){},
-      next () {
-        this.onboarding = this.onboarding + 1 === this.length
-          ? 0
-          : this.onboarding + 1
-      },
-      prev () {
-        this.onboarding = this.onboarding - 1 < 0
-          ? this.length - 1
-          : this.onboarding - 1
-      },
+    ready(){},
+    playing(){
+      this.$refs.youtube.player.playVideo()
+    },
+    ended(){},
+    error(){},
+    next () {
+      this.onboarding = this.onboarding + 1 === this.length
+        ? 0
+        : this.onboarding + 1
+    },
+    prev () {
+      this.onboarding = this.onboarding - 1 < 0
+        ? this.length - 1
+        : this.onboarding - 1
+    },
     },
     created() {
       this.getRecipeList();
