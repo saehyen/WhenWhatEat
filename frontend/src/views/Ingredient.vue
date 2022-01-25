@@ -80,7 +80,7 @@ export default {
     },
     methods :{
       useIngredient(){
-        axios.get('http://10.1.4.112:9999/myrefrigerator/deleteMyRefrigerator?detail_id='+ this.ingredients.detail_id)
+        axios.get('/myrefrigerator/deleteMyRefrigerator?detail_id='+ this.ingredients.detail_id)
         .then(res =>{ 
           console.log(res)
         })
@@ -92,7 +92,7 @@ export default {
       },
       getIndredient(){
         console.log("start");
-        axios.get('http://10.1.4.112:9999/myrefrigerator/infoIngre?detail_id='+this.Recipe_id)
+        axios.get('/myrefrigerator/infoIngre?detail_id='+this.Recipe_id)
         .then(res =>{ 
           this.ingredients = res.data.result;
         })
