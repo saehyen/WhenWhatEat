@@ -226,6 +226,20 @@ export default {
     },
     // 재료 선택
     ingredient_category_sel(){
+      const params={
+        'times_category' : this.ingredient_category.slice(0,this.ingredient_category.length),
+        'category' : this.time_category
+      }
+      axios.post('http://52.79.230.195:8080/back/recipe/category',params)
+        .then((response) => {
+          if (response.data.success) {
+            this.lengths = response.data.result.length;
+            this.recipeList = response.data.result;
+          }
+        })
+        .catch(function(error) {
+          console.log(error);
+        });
       if(this.ingredient_category.includes("전체")){
         this.ingredient_category = []
         console.log("전체선택")
@@ -237,7 +251,7 @@ export default {
     },
       // ----------------------->RecipeController에서 데이터 가져옴.
     getRecipeList() {
-      axios.post('/recipe/recipe')
+      axios.post('http://52.79.230.195:8080/back/recipe/recipe')
         .then((response) => {
           if (response.data.success) {
             console.log(response.data.result);
@@ -254,7 +268,7 @@ export default {
       console.log("clicked! : "+ this.toggle_exclusive);
       // 최신순
       if (this.toggle_exclusive==0) {
-        axios.post('/recipe/recipe')
+        axios.post('http://52.79.230.195:8080/back/recipe/recipe')
         .then((response) => {
           if (response.data.success) {
             this.lengths = response.data.result.length;
@@ -267,7 +281,7 @@ export default {
       }
       // 추천순
       else if(this.toggle_exclusive==1){
-        axios.post('/recipe/recipeRate ')
+        axios.post('http://52.79.230.195:8080/back/recipe/recipeRate ')
         .then((response) => {
           if (response.data.success) {
             this.lengths = response.data.result.length;
@@ -280,7 +294,7 @@ export default {
       }
       // 조회순
       else if(this.toggle_exclusive==2){
-        axios.post('http://52.79.230.195:8080/recipe/recipeViews')
+        axios.post('http://52.79.230.195:8080/back/recipe/recipeViews')
         .then((response) => {
           if (response.data.success) {
             this.lengths = response.data.result.length;

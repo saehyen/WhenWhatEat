@@ -307,7 +307,7 @@ export default {
       console.log(this.selingredient.text);
       console.log(this.picker);
       this.dialog2= false;
-      axios.post('/myrefrigerator/registMyRefrigerator',params)
+      axios.post('http://52.79.230.195:8080/back/myrefrigerator/registMyRefrigerator',params)
         .then((response) => {
           console.log(response);
           this.getIndredient();
@@ -323,7 +323,7 @@ export default {
       },
     // 추천 레시피 목록 가져오기
     getRecipeList() {
-      axios.post('/recipe/recommendRecipe?uid='+2)
+      axios.post('http://52.79.230.195:8080/back/recipe/recommendRecipe?uid='+2)
         .then((response) => {
           if (response.data.success) {
             this.recipeList = response.data.result;
@@ -335,7 +335,7 @@ export default {
     },
     // 재료 목록 가져오기
     getIndredient(){
-        axios.get('/myrefrigerator/myrefrigerator?uid=2')
+        axios.get('http://52.79.230.195:8080/back/myrefrigerator/myrefrigerator?uid=2')
         .then(res =>{ 
           this.ingredients=res.data.result;
         })
