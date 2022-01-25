@@ -185,7 +185,7 @@
       },
       // 탑6 레시피 받아오기
     getRecipeList() {
-      axios.post('/recipe/topRecipe')
+      axios.post('http://52.79.230.195:8080/back/recipe/topRecipe')
         .then((response) => {
           if (response.data.success) {
             this.topRecipe = response.data.result

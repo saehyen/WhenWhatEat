@@ -82,7 +82,7 @@ export default {
       console.log(this.currentPage);
     },
     getRecipeList() {
-      axios.post('/recipe/recipe.do')
+      axios.post('http://52.79.230.195:8080/back/recipe/recipe.do')
         .then((response) => {
           if (response.data.success) {
             console.log(response.data.result);
