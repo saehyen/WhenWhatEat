@@ -163,7 +163,6 @@ export default {
   name: 'Recipe',
   data: () => ({
     indredients: [
-      '전체',
       '고기',
       '해물',
       '채소',
@@ -179,7 +178,6 @@ export default {
       '기타'
     ],
     time_takens:[
-      '전체',
       '5분 이내',
       '10분 이내',
       '20분 이내',
@@ -212,25 +210,11 @@ export default {
     methods: {
     // 분류 버튼 눌렀을 때
     category_select(){
-      console.log(this.ingredient_category.slice(0,this.ingredient_category.length));
-      console.log(this.time_category);
-      if(this.time_category.includes("전체")){
-        console.log("시간전체선택");
+      const data = {
+        'info2' : this.time_category,
+        'category' : this.ingredient_category.slice(0,this.ingredient_category.length)
       }
-      if(this.ingredient_category == "전체"){
-        console.log("재료전체선택");
-      }
-    },
-    // 시간 선택
-    time_category_sel(){
-    },
-    // 재료 선택
-    ingredient_category_sel(){
-      const params={
-        'times_category' : this.ingredient_category.slice(0,this.ingredient_category.length),
-        'category' : this.time_category
-      }
-      axios.post('http://52.79.230.195:8080/back/recipe/category',params)
+      axios.get('http://52.79.230.195:8080/back/recipe/category?info2='+data.info2+'&category='+data.category)
         .then((response) => {
           if (response.data.success) {
             this.lengths = response.data.result.length;
@@ -240,10 +224,18 @@ export default {
         .catch(function(error) {
           console.log(error);
         });
+      // if(this.time_category.includes("전체")){
+      // }
+      // if(this.ingredient_category == "전체"){
+      // }
+    },
+    // 시간 선택
+    time_category_sel(){
+    },
+    // 재료 선택
+    ingredient_category_sel(){
       if(this.ingredient_category.includes("전체")){
         this.ingredient_category = []
-        console.log("전체선택")
-        console.log(this.ingredient_category)
       }
     },
     godetail(id){
@@ -254,8 +246,6 @@ export default {
       axios.post('http://52.79.230.195:8080/back/recipe/recipe')
         .then((response) => {
           if (response.data.success) {
-            console.log(response.data.result);
-            console.log(response.data.result.length);
             this.lengths = response.data.result.length;
             this.recipeList = response.data.result;
           }
@@ -265,7 +255,6 @@ export default {
         });
     },
     SortPick(){
-      console.log("clicked! : "+ this.toggle_exclusive);
       // 최신순
       if (this.toggle_exclusive==0) {
         axios.post('http://52.79.230.195:8080/back/recipe/recipe')
@@ -308,7 +297,6 @@ export default {
     },
     handlePageChange(value) {
       this.currentPage = value;
-      console.log(this.currentPage);
     }
 
     // <------------------------------------------------------

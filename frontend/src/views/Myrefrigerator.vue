@@ -1,7 +1,7 @@
 <template>
    <v-container>
       <v-card-title class="primary--text" >
-      {{user_name}} 님의 추천 레시피
+      {{user_name}}님의 추천 레시피
       </v-card-title>
       <v-sheet
         elevation="3"
@@ -45,7 +45,7 @@
                   <span style="font-size:12px">({{card.rate_count }}) </span>
                    </v-col>
                 <v-col >
-                  <span style="font-size:12px">조회수 : {{card.views}}</span>
+                  <span style="font-size:12px">조회수:{{card.views}}</span>
                 </v-col>
             </v-row>
           </v-card>
@@ -150,9 +150,10 @@ export default {
     gradient:"",
     rating:4,
     recipeList:[],
-    user_name : "마서현",
+    
     selingredient : '',
     dialog2: false,
+    
     notifications: false,
     sound: true,
     widgets: false,
@@ -282,6 +283,10 @@ export default {
       { text: '후추' },
       { text: '훈제오리' },
     ],
+    user_name : this.$session.get('username'),
+    user_uid : this.$session.get('useruid'),
+    prevlog : this.$session.get('islogin'),
+    id : this.$session.get('UserId')
     }
     
   },
@@ -294,23 +299,21 @@ export default {
           case 'lg': return 300
           case 'xl': return 300
         }}
-    },
+   },
   
   methods:{
     // 재료 추가
     addingredient(){
       const params={
-        'uid' : 2,
+        'uid' : this.user_uid,
         'prod_name' : this.selingredient.text,
         'prod_exp' : this.picker
       }
-      console.log(this.selingredient.text);
-      console.log(this.picker);
       this.dialog2= false;
       axios.post('http://52.79.230.195:8080/back/myrefrigerator/registMyRefrigerator',params)
         .then((response) => {
-          console.log(response);
           this.getIndredient();
+          this.getRecipeList();
         })
         .catch(function(error) {
           console.log(error);
@@ -323,7 +326,7 @@ export default {
       },
     // 추천 레시피 목록 가져오기
     getRecipeList() {
-      axios.post('http://52.79.230.195:8080/back/recipe/recommendRecipe?uid='+2)
+      axios.post('http://52.79.230.195:8080/back/recipe/recommendRecipe?uid='+this.user_uid)
         .then((response) => {
           if (response.data.success) {
             this.recipeList = response.data.result;
@@ -335,7 +338,7 @@ export default {
     },
     // 재료 목록 가져오기
     getIndredient(){
-        axios.get('http://52.79.230.195:8080/back/myrefrigerator/myrefrigerator?uid=2')
+        axios.get('http://52.79.230.195:8080/back/myrefrigerator/myrefrigerator?uid='+this.user_uid)
         .then(res =>{ 
           this.ingredients=res.data.result;
         })
@@ -351,6 +354,7 @@ export default {
   created() {
     this.getRecipeList();
     this.getIndredient();
+    console.log(new Date(Date.now()).toISOString().substr(0, 10));
   },
 }
 
