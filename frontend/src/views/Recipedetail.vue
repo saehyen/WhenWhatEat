@@ -132,7 +132,6 @@ export default {
     },
     methods :{
       getRecipedetail(){
-        console.log("start");
         axios.get('http://52.79.230.195:8080/back/recipe/recipeDetail?id='+this.Recipe_id)
         .then(res =>{ 
           this.lists = res.data.result;
@@ -141,10 +140,8 @@ export default {
             console.log(error))
         },
       getRecipe(){
-        console.log("start");
         axios.get('http://52.79.230.195:8080/back/recipe/recipeInfo?id='+this.Recipe_id)
         .then(res =>{ 
-          console.log(res.data.result);
           this.recipe = res.data.result;
         })
         .catch(error => 
@@ -161,7 +158,6 @@ export default {
       },
     
     created() {
-      console.log(this.Recipe_id);
       this.getRecipedetail();
       this.getRecipe();
   }

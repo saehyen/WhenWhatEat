@@ -66,8 +66,6 @@ const routes = [
 			title: "레시피상세",
 		  },
 	 },
-  
-	
 	{
 		path:'/Login'
 		,name:'Login'

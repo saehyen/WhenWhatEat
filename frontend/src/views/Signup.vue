@@ -1,8 +1,6 @@
 <template>
-   <v-container  >
-    <v-card class="pa-3" >
-      Signup
-    </v-card>
+   <v-container style="margin : 5vh auto; max-width: 400px; width:100%;">
+    
     <validation-observer
     ref="observer"
     v-slot="{ invalid }"
@@ -11,43 +9,40 @@
           align="center">
       <validation-provider
         v-slot="{ errors }"
-        name="Name"
+        name="ID"
         rules="required|max:10"
       >
         <v-text-field
-          v-model="name"
+          v-model="ID"
           :counter="10"
           :error-messages="errors"
-          label="Name"
+          label="ID"
           required
         ></v-text-field>
       </validation-provider>
       <validation-provider
         v-slot="{ errors }"
-        name="phoneNumber"
-        :rules="{
-          required: true,
-          digits: 11,
-          regex: '^01([0|1|6|7|8|9])-?([0-9]{3,4})-?([0-9]{4})$'
-        }"
+        name="password"
+        rules="required|max:10"
+        
       >
         <v-text-field
-          v-model="phoneNumber"
+          v-model="password"
           :counter="11"
           :error-messages="errors"
-          label="Phone Number"
+          label="password"
           required
         ></v-text-field>
       </validation-provider>
       <validation-provider
         v-slot="{ errors }"
-        name="email"
-        rules="required|email"
+        name="name"
+        rules="required|max:10"
       >
         <v-text-field
-          v-model="email"
+          v-model="names"
           :error-messages="errors"
-          label="E-mail"
+          label="name"
           required
         ></v-text-field>
       </validation-provider>

@@ -122,7 +122,8 @@
   name: 'Index',
   components:{
   },
-  data: () => ({
+  data() {
+      return{
       topRecipe:[],
       length: 3,
       onboarding: 0,
@@ -133,8 +134,9 @@
       video_subname:['달걀볶음밥','뱅쇼','각국 면요리'],
       cards: [
       { title: '냉장고는 가볍게 입 안을 즐겁게', src: 'https://cdn.pixabay.com/photo/2015/09/21/14/23/supermarket-949912_1280.jpg', flex: 12 }
-    ],
-    }),
+    ],prevlog : this.$session.get('islogin')
+      }
+    },
     computed: {
       widths () {
         switch (this.$vuetify.breakpoint.name) {
@@ -169,7 +171,6 @@
         axios.get("http://ec2-13-124-134-65.ap-northeast-2.compute.amazonaws.com:8080/api/noticelist")
         .then((response) => {
             this.data = response.data;  
-            console.log(this.data)
           
           for(var pageNo = 0; pageNo < this.data.totalPages; pageNo++){ 
               pageBtn += "<li>";
@@ -177,7 +178,6 @@
               pageBtn += "</li>";
 
           }
-          console.log(pageBtn)
           $("ul#pages").append(pageBtn)
         
  

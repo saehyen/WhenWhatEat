@@ -15,12 +15,12 @@
             <img src="./assets/logo.png" width="200px" height="100%">
     </router-link>
     <v-spacer/>
-       <v-btn  to="/Login">
-        <v-icon
-          size = "35">
-          mdi-account-circle</v-icon>
+       <v-btn v-if="!prevlog" to="/Login">
+        로그인
         </v-btn>
-        
+       <v-btn v-if="prevlog" @click="logoutEnt">
+        로그아웃
+        </v-btn> 
     </v-app-bar>
     
   <v-navigation-drawer 
@@ -51,6 +51,7 @@
       <v-list
         dense
         nav
+        
       >
         <v-list-item
           v-for="item in items"
@@ -61,11 +62,11 @@
           class="py-1"
         >
           <v-list-item-icon>
-            <v-icon>{{ item.icon }}</v-icon>
+            <v-icon > {{ item.icon }} </v-icon>
           </v-list-item-icon>
 
-          <v-list-item-content>
-            <v-list-item-title>{{ item.title }}</v-list-item-title>
+          <v-list-item-content >
+            <v-list-item-title >{{ item.title }}</v-list-item-title>
           </v-list-item-content>
         </v-list-item>
       </v-list>
@@ -82,7 +83,9 @@
 <script>
 export default {
   name: 'App',
-  data: () => ({
+  data(){{
+    return {
+    prevlog : this.$session.get('islogin'),
     drawer:false,
     items: [
           { title: '홈', icon: 'mdi-home', to: '/' },
@@ -92,6 +95,16 @@ export default {
           { title: '관리자', icon: 'mdi-wrench', to:'/Admin' },
         ],
         right: null,
-  }),
+      }
+    }
+    
+  },
+  methods:{
+    logoutEnt(){
+      this.$session.destroy();
+      this.$router.push('/')
+      this.$router.go('/')
+    },
+  },
 };
 </script>
