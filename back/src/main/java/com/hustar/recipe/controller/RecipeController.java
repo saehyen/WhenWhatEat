@@ -1,5 +1,7 @@
 package com.hustar.recipe.controller;
 
+import java.util.List;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -73,7 +75,7 @@ public class RecipeController {
 	
 	@CrossOrigin(origins = "*")
 	@ResponseBody
-	@RequestMapping(value = "topRecipe", method = RequestMethod.POST)
+	@RequestMapping(value = "topRecipe", method = {RequestMethod.POST, RequestMethod.GET})
 	public ResultVO getTopRecipe() {
 
 		System.out.println("result TopRecipe");
@@ -133,7 +135,57 @@ public class RecipeController {
 		return result;
 	}
 	
+	@CrossOrigin(origins = "*")
+	@ResponseBody
+	@RequestMapping(value = "category", method = {RequestMethod.POST , RequestMethod.GET})
+	public ResultVO categoryRecipe(@RequestParam(value = "category") List<String> category,
+									@RequestParam(value = "info2") String info2) {
+
+		System.out.println(category);
+		ResultVO result = new ResultVO(false, null);
+
+			result.setResult(recipeService.categoryList(category, info2));
+			result.setSuccess(true);
+		return result;
+	}
 	
 	
+	@CrossOrigin(origins = "*")
+	@ResponseBody
+	@RequestMapping(value = "rate", method = { RequestMethod.POST, RequestMethod.GET })
+	public int updateRate(@RequestParam(value = "uid") Long uid,
+								@RequestParam(value = "recipe_id") Long recipe_id,
+								@RequestParam(value = "rate") double rate) {
+
+		System.out.println("rate update");
+		Boolean result = false;
+		
+		result = recipeService.updateRate(uid, recipe_id, rate);
+		
+		System.out.println(result);
+		
+		if(result == true) {
+			return 1;
+		}
+		else {
+			return 0;
+		}
+		
+	}
+	
+	
+//	@CrossOrigin(origins = "*")
+//	@ResponseBody
+//	@RequestMapping(value = "getRate", method = {RequestMethod.POST , RequestMethod.GET})
+//	public ResultVO getRecipeRecommend(@RequestParam(value="id") Long id) {
+//
+//		System.out.println("getRate");
+//		ResultVO result = new ResultVO(false, null);
+//
+//			result.setResult(recipeService.getRate(id));
+//			result.setSuccess(true);
+//		return result;
+//		
+//	}
 	
 }

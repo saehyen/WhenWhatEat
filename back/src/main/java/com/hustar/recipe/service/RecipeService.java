@@ -2,13 +2,14 @@ package com.hustar.recipe.service;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
+import org.apache.ibatis.exceptions.PersistenceException;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.hustar.recipe.mapper.RateMapper;
 import com.hustar.recipe.mapper.RecipeMapper;
 import com.hustar.recipe.vo.RecipeDetailVO;
 import com.hustar.recipe.vo.RecipeVO;
@@ -49,8 +50,6 @@ public class RecipeService implements RecipeServiceIF {
 			// TODO: handle exception
 			e.printStackTrace();
 		}
-		
-		
 		
 		
 		return recipe;
@@ -133,5 +132,90 @@ public class RecipeService implements RecipeServiceIF {
 		}
 		return recipeViews;
 	}
+	
+	@Override
+	public List<RecipeVO> categoryList(List<String> category, String info2) {
+
+		System.out.println(category);
+		List<RecipeVO> categoryRecipe = new ArrayList<RecipeVO>();
+
+		try (SqlSession session = sqlSessionFactory.openSession()) {
+			RecipeMapper mapper = session.getMapper(RecipeMapper.class);
+
+			categoryRecipe = mapper.categoryList(category, info2);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		System.out.println(categoryRecipe);
+		return categoryRecipe;
+	}
+
+	@Override
+	public Boolean updateRate(Long uid, Long recipe_id, double rate) {
+		
+		System.out.println("uid: " + uid + "recipe_id: " + recipe_id + "rate: " + rate);
+		Boolean result = false;
+		Integer mapperResult = 0;
+		
+		try {
+			SqlSession sessionUser = sqlSessionFactory.openSession();
+			RateMapper rateMapper = sessionUser.getMapper(RateMapper.class);
+			mapperResult = rateMapper.insertRate(uid, recipe_id, rate);
+		}catch(PersistenceException e) {
+			mapperResult = 0;
+		}
+		
+		
+		if(mapperResult > 0) {
+			SqlSession sessionRateTotal = sqlSessionFactory.openSession();
+			RecipeMapper rateTotalMapper = sessionRateTotal.getMapper(RecipeMapper.class);
+			rateTotalMapper.updateRateTotal(recipe_id, rate);
+
+			SqlSession sessionRateCount = sqlSessionFactory.openSession();
+			RecipeMapper rateCountMapper = sessionRateCount.getMapper(RecipeMapper.class);
+			rateCountMapper.updateRateCount(recipe_id);
+			
+			SqlSession sessionRateUpdate = sqlSessionFactory.openSession();
+			RecipeMapper rateUpdateMapper = sessionRateUpdate.getMapper(RecipeMapper.class);
+			rateUpdateMapper.updateRate(recipe_id);
+		}
+		
+		if (mapperResult > 0) {
+			result = true;
+		}
+		//정상 동작이 아닐 시 return 값을 false
+		else {
+			result = false;
+		}
+		
+		
+		return result;
+	}
+	
+	
+	
+	
+//	@Override
+//	public List<RecipeVO> getRate(Long id) {
+//		List<RecipeVO> recipe = new ArrayList<RecipeVO>();
+//		
+//		try (SqlSession session = sqlSessionFactory.openSession()) {
+//			RecipeMapper mapper = session.getMapper(RecipeMapper.class);
+// 
+//			recipe = mapper.getRecipeDetailList(id);
+//			mapper.getRate(id);
+// 
+//		} catch (Exception e) {
+//			// TODO: handle exception
+//			e.printStackTrace();
+//		}
+//		
+//		
+//		return recipe;
+//	}
+	
+	
+	
+	
 	
 }

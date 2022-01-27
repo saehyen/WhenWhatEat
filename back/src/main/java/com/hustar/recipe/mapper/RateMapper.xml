@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hustar.recipe.mapper.RateMapper">
+
+	<resultMap type="com.hustar.recipe.vo.RateVO" id="rateMap">
+		<id property="rate_idx" column="rate_idx"></id>
+		<result property="uid" column="uid" />
+		<result property="recipe_id" column="recipe_id" />
+		<result property="rate" column="rate" />
+	</resultMap>
+
+
+	<insert id="insertRate">
+		INSERT INTO user_rate
+		(uid, recipe_id, rate)
+		VALUES (#{uid}, #{recipe_id}, #{rate})
+	</insert>
+	
+</mapper>

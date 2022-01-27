@@ -38,9 +38,4 @@
 		WHERE detail_id =
 		#{detail_id}
 	</delete>
-
-
-
-
-
 </mapper>
