@@ -28,12 +28,11 @@
               <v-row class="ma-1">
                 <v-col cols="5">
                   <v-rating
-                    v-model="rating"
+                    v-model="card.rate"
                     background-color="orange"
                     color="orange darken-3"
                     readonly
                     size="15"
-                    :value="card.rate"
                   ></v-rating>    
                 </v-col>
                 <v-col cols="3" >
@@ -81,7 +80,8 @@ export default {
       this.currentPage = value;
     },
     getRecipeList() {
-      axios.post('http://52.79.230.195:8080/back/recipe/recipe.do')
+      axios.post('http://10.1.4.112:9999/recipe/rank')
+      //axios.post('http://52.79.230.195:8080/back/recipe/recipe.do')
         .then((response) => {
           if (response.data.success) {
             this.recipeList = response.data.result;
