@@ -79,13 +79,11 @@ export default {
   methods:{
     handlePageChange(value) {
       this.currentPage = value;
-      console.log(this.currentPage);
     },
     getRecipeList() {
-      axios.post('http://10.1.4.112:9999/recipe/recipe.do')
+      axios.post('http://52.79.230.195:8080/back/recipe/recipe.do')
         .then((response) => {
           if (response.data.success) {
-            console.log(response.data.result);
             this.recipeList = response.data.result;
             this.lengths=response.data.result.length;
           }

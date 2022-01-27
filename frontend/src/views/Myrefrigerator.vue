@@ -1,7 +1,7 @@
 <template>
    <v-container>
       <v-card-title class="primary--text" >
-      {{user_name}} 님의 추천 레시피
+      {{user_name}}님의 추천 레시피
       </v-card-title>
       <v-sheet
         elevation="3"
@@ -45,7 +45,7 @@
                   <span style="font-size:12px">({{card.rate_count }}) </span>
                    </v-col>
                 <v-col >
-                  <span style="font-size:12px">조회수 : {{card.views}}</span>
+                  <span style="font-size:12px">조회수:{{card.views}}</span>
                 </v-col>
             </v-row>
           </v-card>
@@ -121,11 +121,27 @@
           :sm="4"
           :xs="6"
         >
-          <v-card v-if="card.num!=0"
+          <v-card 
           @click="godetailIn(card.detail_id)"
+          v-if="exp(card.prod_exp.slice(0,10))"
           >
             <v-img 
               :src="card.prod_img"
+              class="white--text align-end"
+              gradient="to bottom, rgba(0,0,0,.1), rgba(0,0,0,.5)"
+              height="125px"
+            >
+              <v-card-title v-text="card.prod_name"></v-card-title>
+              <v-card-subtitle >{{ card.prod_exp.slice(0,10) }}까지 </v-card-subtitle>
+             <!-- <v-card-subtitle >{{ new Date().getYear()+1900 }}년{{ new Date().getMonth()+1 }}월{{ new Date().getDate() }}일까지 </v-card-subtitle> -->
+            </v-img>
+          </v-card>
+          <v-card 
+            @click="godetailIn(card.detail_id)"
+            v-if="!exp(card.prod_exp.slice(0,10))"
+          >
+            <v-img 
+              :src= "warning"
               class="white--text align-end"
               gradient="to bottom, rgba(0,0,0,.1), rgba(0,0,0,.5)"
               height="125px"
@@ -150,12 +166,12 @@ export default {
     gradient:"",
     rating:4,
     recipeList:[],
-    user_name : "마서현",
     selingredient : '',
     dialog2: false,
     notifications: false,
     sound: true,
     widgets: false,
+    warning:'https://cdn.pixabay.com/photo/2014/04/02/10/26/attention-303861__340.png',
     picker: (new Date(Date.now() - (new Date()).getTimezoneOffset() * 60000)).toISOString().substr(0, 10),
     ingredients:[],
     select: [
@@ -282,6 +298,10 @@ export default {
       { text: '후추' },
       { text: '훈제오리' },
     ],
+    user_name : this.$session.get('username'),
+    user_uid : this.$session.get('useruid'),
+    prevlog : this.$session.get('islogin'),
+    id : this.$session.get('UserId')
     }
     
   },
@@ -294,23 +314,30 @@ export default {
           case 'lg': return 300
           case 'xl': return 300
         }}
-    },
+   },
   
   methods:{
+    exp(exp_date){
+      console.log(new Date(exp_date) - new Date(Date.now()));
+      console.log("----")
+      if ((new Date(exp_date) - new Date(Date.now())) >0)  {return true}
+      else {return false}
+      
+    },
     // 재료 추가
     addingredient(){
       const params={
-        'uid' : 2,
+        'uid' : this.user_uid,
         'prod_name' : this.selingredient.text,
         'prod_exp' : this.picker
       }
-      console.log(this.selingredient.text);
-      console.log(this.picker);
       this.dialog2= false;
-      axios.post('http://10.1.4.112:9999/myrefrigerator/registMyRefrigerator',params)
-        .then((response) => {
-          console.log(response);
+      
+      axios.post('http://52.79.230.195:8080/back/myrefrigerator/registMyRefrigerator',params)
+      //axios.post('http://10.1.4.112:9999/myrefrigerator/registMyRefrigerator',params)
+      .then((response) => {
           this.getIndredient();
+          this.getRecipeList();
         })
         .catch(function(error) {
           console.log(error);
@@ -323,7 +350,8 @@ export default {
       },
     // 추천 레시피 목록 가져오기
     getRecipeList() {
-      axios.post('http://10.1.4.112:9999/recipe/recommendRecipe?uid='+2)
+      //axios.post('http://10.1.4.112:9999/recipe/recommendRecipe?uid='+this.user_uid)
+       axios.post('http://52.79.230.195:8080/back/recipe/recommendRecipe?uid='+this.user_uid)
         .then((response) => {
           if (response.data.success) {
             this.recipeList = response.data.result;
@@ -335,7 +363,9 @@ export default {
     },
     // 재료 목록 가져오기
     getIndredient(){
-        axios.get('http://10.1.4.112:9999/myrefrigerator/myrefrigerator?uid=2')
+         // axios.get('http://10.1.4.112:9999/myrefrigerator/myrefrigerator?uid='+this.user_uid)
+        axios.get('http://52.79.230.195:8080/back/myrefrigerator/myrefrigerator?uid='+this.user_uid)
+        
         .then(res =>{ 
           this.ingredients=res.data.result;
         })
@@ -353,7 +383,7 @@ export default {
     this.getIndredient();
   },
 }
- 
+
 </script>
 
 <style scoped>

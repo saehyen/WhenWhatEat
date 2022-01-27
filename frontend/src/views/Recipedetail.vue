@@ -79,7 +79,7 @@
 
     <v-card-text>
       <v-rating
-          :value="recipe[0].rate"
+          v-model="evaluate_rate"
           color="amber"
           dense
           half-increments
@@ -91,7 +91,7 @@
       <v-btn
         color="deep-purple lighten-2"
         text
-        @click="reserve"
+        @click="evaluate"
       >
         평가하기
       </v-btn>
@@ -128,12 +128,35 @@ export default {
             Recipe_id : this.$route.params.id,
             lists:[],
             recipe:[],
+            evaluate_rate:0,
+            user_uid: this.$session.get('useruid'),
+            result:3,
         }
     },
     methods :{
+      evaluate(){
+        console.log('별점 : ' + this.evaluate_rate + 'uid : ' + this.user_uid + '레시피아이디 : ' + this.Recipe_id)
+        axios.get('http://10.1.4.112:9999/recipe/rate?uid=' + this.user_uid + '&recipe_id='+this.Recipe_id+'&rate='+this.evaluate_rate)
+        .then(res =>{ 
+          console.log(res.data)
+          this.result=res.data
+          if (this.result == 1 ) {
+            alert("평가가 반영되었습니다.")
+            this.$router.push('/Recipedetail/'+this.Recipe_id);
+            this.$router.go();
+          }
+          else {
+            alert("이미 평가된 레시피입니다.")
+            this.$router.push('/Recipedetail/'+this.Recipe_id);
+            this.$router.go();
+            
+          }
+        })
+        .catch(error => 
+            console.log(error))
+      },
       getRecipedetail(){
-        console.log("start");
-        axios.get('http://10.1.4.112:9999/recipe/recipeDetail?id='+this.Recipe_id)
+        axios.get('http://52.79.230.195:8080/back/recipe/recipeDetail?id='+this.Recipe_id)
         .then(res =>{ 
           this.lists = res.data.result;
         })
@@ -141,10 +164,8 @@ export default {
             console.log(error))
         },
       getRecipe(){
-        console.log("start");
-        axios.get('http://10.1.4.112:9999/recipe/recipeInfo?id='+this.Recipe_id)
+        axios.get('http://52.79.230.195:8080/back/recipe/recipeInfo?id='+this.Recipe_id)
         .then(res =>{ 
-          console.log(res.data.result);
           this.recipe = res.data.result;
         })
         .catch(error => 
@@ -161,7 +182,6 @@ export default {
       },
     
     created() {
-      console.log(this.Recipe_id);
       this.getRecipedetail();
       this.getRecipe();
   }

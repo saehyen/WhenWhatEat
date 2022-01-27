@@ -66,15 +66,6 @@ const routes = [
 			title: "레시피상세",
 		  },
 	 },
-  
-	{
-		path:'/Test'
-		,name:'Test'
-		, component: ()=> import('../views/Test.vue')
-		, meta: {
-			title: "테스트페이지",
-		  },
-	},
 	{
 		path:'/Login'
 		,name:'Login'
@@ -91,14 +82,7 @@ const routes = [
 			title: "회원가입",
 		  },
 	},
-	{
-		path:'/Board'
-		,name:'Board'
-		, component: ()=> import('../views/board.vue')
-		, meta: {
-			title: "테스트2",
-		  },
-	},
+	
 	
 ]
   

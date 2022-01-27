@@ -122,7 +122,8 @@
   name: 'Index',
   components:{
   },
-  data: () => ({
+  data() {
+      return{
       topRecipe:[],
       length: 3,
       onboarding: 0,
@@ -133,8 +134,9 @@
       video_subname:['달걀볶음밥','뱅쇼','각국 면요리'],
       cards: [
       { title: '냉장고는 가볍게 입 안을 즐겁게', src: 'https://cdn.pixabay.com/photo/2015/09/21/14/23/supermarket-949912_1280.jpg', flex: 12 }
-    ],
-    }),
+    ],prevlog : this.$session.get('islogin')
+      }
+    },
     computed: {
       widths () {
         switch (this.$vuetify.breakpoint.name) {
@@ -144,33 +146,31 @@
           case 'lg': return 215
           case 'xl': return 400
         }},
-        playerVars() {
-          return {
-            //controls: 0,
-            player3: Object,
-            rel: 0,
-            autoplay: 0,
-            enablejsapi: 1,
-            fs: 0,
-            playsinline: 1,
-            ivLoadPolicy2: 1,
-            //playlist: this.videoId,
-            //muted: 1,
-            //loop: 1,
-            start: this.start,
-            end: this.end,
-            
-          };
-        },
+      playerVars() {
+        return {
+          //controls: 0,
+          player3: Object,
+          rel: 0,
+          autoplay: 0,
+          enablejsapi: 1,
+          fs: 0,
+          playsinline: 1,
+          ivLoadPolicy2: 1,
+          //playlist: this.videoId,
+          //muted: 1,
+          //loop: 1,
+          start: this.start,
+          end: this.end,
+          
+        };
       },
+    },
     methods: {
       getItem(){
       const page = 0;
-
         axios.get("http://ec2-13-124-134-65.ap-northeast-2.compute.amazonaws.com:8080/api/noticelist")
         .then((response) => {
             this.data = response.data;  
-            console.log(this.data)
           
           for(var pageNo = 0; pageNo < this.data.totalPages; pageNo++){ 
               pageBtn += "<li>";
@@ -178,15 +178,14 @@
               pageBtn += "</li>";
 
           }
-          console.log(pageBtn)
           $("ul#pages").append(pageBtn)
         
  
         })
       },
       // 탑6 레시피 받아오기
-      getRecipeList() {
-      axios.post('http://10.1.4.112:9999/recipe/topRecipe')
+    getRecipeList() {
+      axios.post('http://52.79.230.195:8080/back/recipe/topRecipe')
         .then((response) => {
           if (response.data.success) {
             this.topRecipe = response.data.result
@@ -196,25 +195,25 @@
           console.log(error);
         });
     },
-     godetail(id){
+    godetail(id){
       this.$router.push('/Recipedetail/'+id);
     },
-      ready(){},
-      playing(){
-        this.$refs.youtube.player.playVideo()
-      },
-      ended(){},
-      error(){},
-      next () {
-        this.onboarding = this.onboarding + 1 === this.length
-          ? 0
-          : this.onboarding + 1
-      },
-      prev () {
-        this.onboarding = this.onboarding - 1 < 0
-          ? this.length - 1
-          : this.onboarding - 1
-      },
+    ready(){},
+    playing(){
+      this.$refs.youtube.player.playVideo()
+    },
+    ended(){},
+    error(){},
+    next () {
+      this.onboarding = this.onboarding + 1 === this.length
+        ? 0
+        : this.onboarding + 1
+    },
+    prev () {
+      this.onboarding = this.onboarding - 1 < 0
+        ? this.length - 1
+        : this.onboarding - 1
+    },
     },
     created() {
       this.getRecipeList();

@@ -64,9 +64,7 @@ export default {
           show: false,
           ingredients:[],
           height:0
-        
         }
-        
     },
     computed:{
       heights () {
@@ -80,20 +78,19 @@ export default {
     },
     methods :{
       useIngredient(){
-        axios.get('http://10.1.4.112:9999/myrefrigerator/deleteMyRefrigerator?detail_id='+ this.ingredients.detail_id)
+        console.log(this.ingredients[0].detail_id)
+        axios.get('http://52.79.230.195:8080/back/myrefrigerator/deleteMyRefrigerator?detail_id='+ this.ingredients[0].detail_id)
         .then(res =>{ 
           console.log(res)
+
         })
         .catch(error => 
-            console.log(error))
-      
+          console.log(error))
         this.$router.push('/Myrefrigerator');
-        console.log("home");
       },
       getIndredient(){
-        console.log("start");
-        axios.get('http://10.1.4.112:9999/myrefrigerator/infoIngre?detail_id='+this.Recipe_id)
-        .then(res =>{ 
+        axios.get('http://52.79.230.195:8080/back/myrefrigerator/infoIngre?detail_id='+this.Recipe_id)
+        .then(res =>{
           this.ingredients = res.data.result;
         })
         .catch(error => 
