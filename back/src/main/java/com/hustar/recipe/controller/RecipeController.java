@@ -45,6 +45,23 @@ public class RecipeController {
 	
 	@CrossOrigin(origins = "*")
 	@ResponseBody
+	@RequestMapping(value = "rank", method = {RequestMethod.POST , RequestMethod.GET})
+	public ResultVO getRank() {
+
+		System.out.println("result recipe");
+		ResultVO result = new ResultVO(false, null);
+
+		try {
+			result.setResult(recipeService.getRank());
+			result.setSuccess(true);
+		} catch (Exception e) {
+			LOG.error("[Recipe] getRecipeList : " + e.getMessage(), e);
+		}
+		return result;
+	}
+	
+	@CrossOrigin(origins = "*")
+	@ResponseBody
 	@RequestMapping(value = "recipeInfo", method = {RequestMethod.POST, RequestMethod.GET})
 	public ResultVO recipeDetailList(@RequestParam(value="id") Long id) {
 		System.out.println(id);

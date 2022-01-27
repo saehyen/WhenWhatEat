@@ -25,6 +25,8 @@ public interface RecipeServiceIF {
 	public List<RecipeVO> categoryList(List<String> category, String info2);
 	
 	public Boolean updateRate(Long uid, Long recipe_id, double rate);
+	
+	public List<RecipeVO> getRank();
 
 //	public List<RecipeVO> getRate(Long id);
 }
