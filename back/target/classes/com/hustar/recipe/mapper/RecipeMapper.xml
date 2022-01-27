@@ -16,19 +16,21 @@
 		<result property="rate_count" column="rate_count" />
 		<result property="views" column="views" />
 		<result property="post_date" column="post_date" />
+		<result property="rate_total" column="rate_total" />
 	</resultMap>
 
 	<resultMap type="com.hustar.recipe.vo.RecipeDetailVO"
 		id="recipeDetailMap">
 		<id property="detail_idx" column="detail_idx"></id>
-		<id property="detail_id" column="detail_id"></id>
-		<id property="detail_txt" column="detail_txt"></id>
-		<id property="detail_img" column="detail_img"></id>
+		<result property="detail_id" column="detail_id"></result>
+		<result property="detail_txt" column="detail_txt"></result>
+		<result property="detail_img" column="detail_img"></result>
 	</resultMap>
 
 	<select id="getRecipeList" resultMap="recipeMap">
 		SELECT * FROM recipe
-		ORDER BY post_date DESC
+		ORDER
+		BY post_date DESC
 	</select>
 
 	<select id="getRecipeDetailList" resultMap="recipeMap">
@@ -42,11 +44,11 @@
 	</select>
 
 	<select id="getTopRecipe" resultMap="recipeMap">
-		SELECT * FROM recipe
-		WHERE
-		post_date >= DATE_ADD(NOW(), INTERVAL -1 DAY)
-		ORDER BY views DESC, rate
-		DESC LIMIT 6;
+		SELECT DISTINCT name, img
+		FROM recipe
+		WHERE post_date >= DATE_ADD(NOW(), INTERVAL -1 DAY)
+		ORDER BY
+		views DESC, rate DESC LIMIT 6;
 	</select>
 
 	<select id="getRecommendRecipe" resultMap="recipeMap">
@@ -68,22 +70,73 @@
 
 	<select id="detailIngre" resultMap="recipeDetailMap">
 		SELECT * FROM
-		recipe_detail WHERE detail_id = #{detail_id}
+		recipe_detail
+		WHERE detail_id = #{detail_id}
 	</select>
 
 	<select id="getRecipeRate" resultMap="recipeMap">
 		SELECT * FROM recipe
-		ORDER BY rate DESC
+		ORDER
+		BY rate DESC
 	</select>
 
 	<select id="getRecipeViews" resultMap="recipeMap">
 		SELECT * FROM recipe
-		ORDER BY views DESC
+		ORDER
+		BY views DESC
 	</select>
-	
+
 	<select id="updateViews" resultMap="recipeMap">
-		UPDATE recipe SET views = views + 1 
+		UPDATE recipe SET views =
+		views + 1
 		WHERE id = #{id}
 	</select>
-	
+
+	<select id="categoryList" resultMap="recipeMap"
+		parameterType="java.util.List">
+		SELECT *
+		FROM recipe inner JOIN ingredient
+		ON recipe.id =
+		ingredient.ingre_id
+		WHERE recipe.info2 = #{info2} AND
+		ingredient.ingre_cate IN
+		<foreach collection="category" item="item" open="(" close=")"
+			separator=",">
+			#{item}
+		</foreach>
+		GROUP BY recipe.name
+
+	</select>
+
+	<update id="updateRateTotal">
+		UPDATE recipe
+		SET rate_total = #{rate} + rate_total
+		WHERE id = #{id}
+	</update>
+
+	<update id="updateRateCount">
+		UPDATE recipe
+		SET rate_count = rate_count + 1
+		WHERE id
+		= #{id}
+	</update>
+
+	<update id="updateRate">
+		UPDATE recipe
+		SET rate = rate_total / rate_count
+		WHERE
+		id = #{id}
+	</update>
+
+
+
+<!-- 	<select id="getRate" resultMap="recipeMap">
+		SELECT rate
+		FROM recipe
+		WHERE id =
+		#{id}
+	</select> -->
+
+
+
 </mapper>

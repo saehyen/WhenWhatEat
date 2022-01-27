@@ -18,5 +18,6 @@ public class RecipeVO {
 	private int rate_count;
 	private int views;
 	private String post_date;
+	private int rate_total;
 
 }

@@ -10,25 +10,38 @@
 		http://www.springframework.org/schema/beans https://www.springframework.org/schema/beans/spring-beans.xsd
 		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd
 		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.3.xsd">
-	
+
 	<!-- Root Context: defines shared resources visible to all other web components -->
-		<!-- MariaDB JDBC DataSource -->
-	<bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
-		<property name="driverClassName" value="org.mariadb.jdbc.Driver" />
-		<property name="url" value="jdbc:mariadb://10.1.4.112:3306/recipe" />
+	<!-- MariaDB JDBC DataSource -->
+<!-- 	<bean id="dataSource"
+		class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+		<property name="driverClassName"
+			value="org.mariadb.jdbc.Driver" />
+		<property name="url"
+			value="jdbc:mariadb://10.1.4.112:3306/recipe" />
 		<property name="username" value="user" />
 		<property name="password" value="1234" />
-	</bean>
-    
-	<!-- mybatis SqlSessionFactoryBean -->
-	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
-		<property name="dataSource" ref="dataSource" />
-		 <property name="mapperLocations">
-        	<list>
-        		<value>classpath*:com/hustar/recipe/**/mapper/*Mapper.xml</value>
-        	</list>
-        </property>
-	</bean>	
-
+	</bean> -->
 	
+	<bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+      <property name="driverClassName" value="org.mariadb.jdbc.Driver" />
+      <property name="url" value="jdbc:mariadb://recipedb.c1wovb26uan4.ap-northeast-2.rds.amazonaws.com:3306/recipe" />
+      <property name="username" value="admin" />
+      <property name="password" value="spring1234" />
+   </bean>
+
+	<!-- mybatis SqlSessionFactoryBean -->
+	<bean id="sqlSessionFactory"
+		class="org.mybatis.spring.SqlSessionFactoryBean">
+		<property name="dataSource" ref="dataSource" />
+		<property name="mapperLocations">
+			<list>
+				<value>classpath*:com/hustar/recipe/**/mapper/*Mapper.xml</value>
+			</list>
+		</property>
+	</bean>
+
+
+
+
 </beans>
