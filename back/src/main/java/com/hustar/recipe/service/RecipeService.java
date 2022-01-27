@@ -133,6 +133,20 @@ public class RecipeService implements RecipeServiceIF {
 		return recipeViews;
 	}
 	
+	public List<RecipeVO> getRank() {
+
+		List<RecipeVO> recipeViews = new ArrayList<RecipeVO>();
+
+		try (SqlSession session = sqlSessionFactory.openSession()) {
+			RecipeMapper mapper = session.getMapper(RecipeMapper.class);
+
+			recipeViews = mapper.getRecipeViews();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return recipeViews;
+	}
+	
 	@Override
 	public List<RecipeVO> categoryList(List<String> category, String info2) {
 
@@ -190,6 +204,8 @@ public class RecipeService implements RecipeServiceIF {
 		
 		
 		return result;
+		
+		
 	}
 	
 	

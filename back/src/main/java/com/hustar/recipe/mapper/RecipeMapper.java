@@ -34,6 +34,8 @@ public interface RecipeMapper {
 	public void updateRateCount(@Param("id") Long id);
 	
 	public void updateRate(@Param("id") Long id);
+	
+	public List<RecipeVO> getRank();
 
 //	public void getRate(Long id);
 

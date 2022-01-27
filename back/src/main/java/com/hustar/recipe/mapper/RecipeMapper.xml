@@ -85,6 +85,11 @@
 		ORDER
 		BY views DESC
 	</select>
+	
+	<select id="getRank" resultMap="recipeMap">
+		SELECT * FROM recipe 
+		ORDER BY rate DESC, rate_count DESC, views DESC
+	</select>
 
 	<select id="updateViews" resultMap="recipeMap">
 		UPDATE recipe SET views =
