@@ -381,8 +381,6 @@ export default {
   created() {
     this.getRecipeList();
     this.getIndredient();
-    this.exp("2022-02-01");
-    console.log(new Date(Date.now()).toISOString().substr(0, 10));
   },
 }
 

@@ -88,7 +88,10 @@ export default {
           console.log(res.data.result[0])
           this.$session.set('username',res.data.result[0].name);
           this.$session.set('useruid',res.data.result[0].uid);
-          
+          this.$session.set('islogin', true);
+          this.$session.set('userId', this.id);
+          this.$router.push('/Myrefrigerator');
+          // this.$router.go();
         })
         .catch(error => 
             console.log(error))
@@ -109,11 +112,8 @@ export default {
                 if(response.status === 200){
                     if(flag==0){
                       alert("로그인 성공");
-                        this.get_name();
-                        this.$router.push('/');
-                        this.$session.set('islogin', true);
-                        this.$session.set('userId', this.id);
-                        this.$router.go();
+                      this.get_name();
+                        
                     }
                     else if(flag==1){
                         this.$router.go();
