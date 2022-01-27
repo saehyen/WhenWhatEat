@@ -96,7 +96,6 @@ export default {
      join(){
             const config={
                 baseUrl:'http://52.79.230.195:8080/back'
-                //baseUrl:'http://10.1.4.112:9999'
              };
             var User ={
                 'id' : this.userid,

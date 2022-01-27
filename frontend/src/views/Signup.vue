@@ -119,7 +119,7 @@ export default {
       signup(){
         console.log("test")
         console.log(this.id + this.password + this.name)
-        axios.post('http://10.1.4.112:9999/user/registUser?id='+this.id+'&password='+this.password+'&name='+this.name)
+        axios.post('http://52.79.230.195:8080/back/user/registUser?id='+this.id+'&password='+this.password+'&name='+this.name)
         .then(res =>{ 
           console.log(res.data)
           this.result = res.data;

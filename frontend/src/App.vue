@@ -92,7 +92,6 @@ export default {
           { title: '내냉장고', icon: 'mdi-nutrition', to:'/Myrefrigerator'},
           { title: '랭킹', icon: 'mdi-chart-line', to:'/Ranking'},
           { title: '레시피', icon: 'mdi-food', to:'/Recipe' },
-          { title: '관리자', icon: 'mdi-wrench', to:'/Admin' },
         ],
         right: null,
       }
