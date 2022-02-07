@@ -136,7 +136,7 @@ export default {
     methods :{
       evaluate(){
         console.log('별점 : ' + this.evaluate_rate + 'uid : ' + this.user_uid + '레시피아이디 : ' + this.Recipe_id)
-        axios.get('http://10.1.4.112:9999/recipe/rate?uid=' + this.user_uid + '&recipe_id='+this.Recipe_id+'&rate='+this.evaluate_rate)
+        axios.get('http://52.79.230.195:8080/back/recipe/rate?uid=' + this.user_uid + '&recipe_id='+this.Recipe_id+'&rate='+this.evaluate_rate)
         .then(res =>{ 
           console.log(res.data)
           this.result=res.data
